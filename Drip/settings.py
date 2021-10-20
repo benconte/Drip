@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'main.apps.MainConfig',
+    'frontend.apps.FrontendConfig',
+    'register.apps.RegisterConfig',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +127,18 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_URL = '/static/'
+STATICFIELES_DIRS = [
+    os.path.join(BASE_DIR, "main/static")
+]
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# LOGIN_REDIRECT_URL = '/'
+# LOGIN_URL = 'login'
+# LOGOUT_REDIRECT_URL = 'login'
