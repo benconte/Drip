@@ -26,8 +26,8 @@ urlpatterns = [
     path('api/', include('main.urls')),
     path('', include('frontend.urls')),
     path('register/', register_views.register, name="register"),
-    # path('login/', auth_views.LoginView.as_view(template_name='register/login.html', redirect_authenticated_user=True), name='login'),
-    # path('logout/', auth_views.LogoutView.as_view(template_name='register/logout.html'), name='logout'),
+    path('login/', auth_views.LoginView.as_view(template_name='register/login.html', redirect_authenticated_user=True), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='register/logout.html'), name='logout'),
     
 ]
 
