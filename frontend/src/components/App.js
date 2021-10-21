@@ -9,6 +9,7 @@ import {
 import ChooseArtists from './HandleArtists/ChooseArtists'
 import Leftnav from './Leftnav';
 import TopNav from './TopNav';
+import Player from './Player';
 
 export default function App(){
     return (
@@ -16,7 +17,7 @@ export default function App(){
             <Leftnav />
             <TopNav />
             {/* <h2>everytrhing</h2> */}
-            {/* <h2>player</h2> */}
+            <Player />
         </div>
     )
 }

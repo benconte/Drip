@@ -17,12 +17,12 @@
 
 /* changing scrollbar width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 7px;
   border-radius: 10px;
 }
 
 ::-moz-scrollbar{
-  width: 10px;
+  width: 6px;
   border-radius: 10px;
 }
 

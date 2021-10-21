@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 // import { Link } from 'react-router-dom'
+import HomeIcon from '@material-ui/icons/Home';
+// import HomeMaxIcon from '@mui/icons-material/HomeMax';
 
 function Leftnav(){
     return (
@@ -11,9 +13,11 @@ function Leftnav(){
             <NavItems>
                 <ul>
                     <li>
+                        <HomeIcon />
                         <span>home</span>
                     </li>
                     <li>
+                        {/* <HomeMaxIcon /> */}
                         <span>Discover</span>
                     </li>
                     <li>
@@ -106,7 +110,7 @@ const NavItems = styled.div`
                 width: 100%;
                 height: 100%;
                 font-size: 20px;
-                padding-top: 6px;
+                padding-top: 8px;
             }
 
             &:hover {
@@ -127,7 +131,7 @@ const Playlists = styled.div`
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    margin-top: 5px;
+    margin: 5px 0 3px 0;
 
     legend {
         font-weight: 500;
