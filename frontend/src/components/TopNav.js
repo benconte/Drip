@@ -4,6 +4,14 @@ import SearchIcon from '@material-ui/icons/Search';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ClearIcon from '@material-ui/icons/Clear';
+import PersonIcon from '@material-ui/icons/Person';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import AnnouncementIcon from '@material-ui/icons/Announcement';
+import SettingsIcon from '@material-ui/icons/Settings';
+import InfoIcon from '@material-ui/icons/Info';
+import HelpIcon from '@material-ui/icons/Help';
+
 
 function TopNav(){
     const [toggleDropdown, setToogleDropdown] = useState(false)
@@ -33,24 +41,31 @@ function TopNav(){
                             <Content>
                                 <ul>
                                     <li>
+                                        <PersonIcon />
                                         Profile
                                     </li>
                                     <li>
+                                        <FavoriteIcon />
                                         favorites
                                     </li>
                                     <li>
+                                        <AnnouncementIcon />
                                         news
                                     </li>
                                     <li>
+                                        <SettingsIcon />
                                         settings
                                     </li>
                                     <li>
+                                        <InfoIcon />
                                         about us
                                     </li>
                                     <li>
+                                        <HelpIcon />
                                         help
                                     </li>
                                     <li>
+                                        <ExitToAppIcon />
                                         <a href="/logout">logout</a>
                                     </li>
                                 </ul>
@@ -211,6 +226,12 @@ const Content = styled.div`
             padding-top: 6px;
             font-weight: 500;
 
+            svg {
+                color: var(--light-color);
+                font-size: 1.5rem;
+                margin-right: 5px;
+            }
+
             a {
                 width: 100%;
                 height: 100%;
@@ -220,6 +241,10 @@ const Content = styled.div`
             &:hover {
                 background: #333;
                 color: #eee;
+
+                svg {
+                    color: #eee;
+                }
 
                 a {
                     text-decoration: none;

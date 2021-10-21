@@ -58,6 +58,7 @@ function Player(){
                     <input type="range" min='0' max="100" value={volume} onInput={(e) => handleVolume(e)} />
                     <VolumeUpIcon />
                 </div>
+                <FavoriteBorderIcon className="favorite" />
                 <MicIcon className="lyrics" />
                 <QueueMusicIcon className="queue" />
             </RightSection>
@@ -196,6 +197,16 @@ const RightSection = styled.div`
     justify-content: center;
 
     .lyrics {
+        margin: 0 10px;
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--green);
+        }
+    }
+
+    .favorite {
         margin: 0 10px;
         font-size: 1.5rem;
         cursor: pointer;

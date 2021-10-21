@@ -2,7 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 // import { Link } from 'react-router-dom'
 import HomeIcon from '@material-ui/icons/Home';
-// import HomeMaxIcon from '@mui/icons-material/HomeMax';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import QueueMusicIcon from '@material-ui/icons/QueueMusic';
+import RadioIcon from '@material-ui/icons/Radio';
 
 function Leftnav(){
     return (
@@ -21,6 +23,7 @@ function Leftnav(){
                         <span>Discover</span>
                     </li>
                     <li>
+                        <RadioIcon />
                         <span>radio</span>
                     </li>
                 </ul>
@@ -28,8 +31,8 @@ function Leftnav(){
             <Playlists>
                 <legend>Your library</legend>
                 <ul className="info">
-                    <li><span>Favorites</span></li>
-                    <li><span>playlists</span></li>
+                    <li><FavoriteIcon /><span>Favorites</span></li>
+                    <li><QueueMusicIcon /><span>playlists</span></li>
                 </ul>
                 <legend>My Playlists</legend>
                 <ul className="user-playlists">
@@ -76,6 +79,10 @@ const Nav = styled.div`
         justify-content: center;
         border-bottom: 1px solid #444;
 
+        svg {
+            margin-right: 7px;
+        }
+
         span {
             font-weight: bold;
             font-size: 2rem;
@@ -105,7 +112,7 @@ const NavItems = styled.div`
             font-weight: 400;
             color: #bdb8d7;
             transition: .2s;
-            
+
             span {
                 width: 100%;
                 height: 100%;
@@ -155,7 +162,11 @@ const Playlists = styled.div`
             font-weight: 400;
             color: #bdb8d7;
             transition: .2s;
-            
+
+            svg {
+                margin-right: 5px;
+            }
+
             span {
                 width: 100%;
                 height: 100%;
