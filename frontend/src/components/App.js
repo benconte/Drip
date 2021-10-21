@@ -8,14 +8,15 @@ import {
 
 import ChooseArtists from './HandleArtists/ChooseArtists'
 import Leftnav from './Leftnav';
+import TopNav from './TopNav';
 
 export default function App(){
     return (
         <div>
             <Leftnav />
-            {/* <h2>top-nav</h2>
-            <h2>everytrhing</h2>
-            <h2>player</h2> */}
+            <TopNav />
+            {/* <h2>everytrhing</h2> */}
+            {/* <h2>player</h2> */}
         </div>
     )
 }

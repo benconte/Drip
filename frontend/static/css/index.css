@@ -12,7 +12,7 @@
     --green: #1DB954;
     --box-shadow: 0 0 0 0.15rem rgb(13 253 123 / 25%);
     --light-color: #bdb8d7;
-    --transition: transition: all .2s linear;
+    --transition: all .2s linear;
 }
 
 /* changing scrollbar width */
@@ -65,3 +65,4 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+

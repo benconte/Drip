@@ -53,6 +53,9 @@ function Leftnav(){
 export default Leftnav;
 
 const Nav = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 230px;
     height: calc(100vh - 80px);
     background: #000;
