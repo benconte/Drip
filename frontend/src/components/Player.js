@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import QueueMusicIcon from '@material-ui/icons/QueueMusic';
 import AlbumIcon from '@material-ui/icons/Album';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import ReplayIcon from '@material-ui/icons/Replay';
@@ -18,8 +19,14 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 
 function Player(){
     const [player, setPlayer] = useState()
-    const handleChange = (e) => {
+    const [volume, setVolume] = useState()
+    const handleSlider = (e) => {
         setPlayer(e.target.value)
+    }
+
+    const handleVolume = (e) => {
+        setVolume(e.target.value)
+
     }
     return (
         <Nav>
@@ -35,21 +42,24 @@ function Player(){
                 <div className="controls">
                     <LoopIcon />
                     <SkipPreviousIcon />
-                    <PlayArrowIcon />
+                    <PlayArrowIcon className="play-icon" />
                     <SkipNextIcon />
                     <ShuffleIcon />
                 </div>
                 <div className="slider">
                     <CtView>00:00</CtView>
-                    <input type="range" min='0' max="100" value={player} onInput={(e) => handleChange(e)} />
+                    <input type="range" min='0' max="100" value={player} onInput={(e) => handleSlider(e)} />
                     <TtView>00:00</TtView>
                 </div>
                 
             </MiddleSection>
             <RightSection>
-                <VolumeUpIcon />
-                <MicIcon />
-                <QueueMusicIcon />
+                <div className="volume">
+                    <input type="range" min='0' max="100" value={volume} onInput={(e) => handleVolume(e)} />
+                    <VolumeUpIcon />
+                </div>
+                <MicIcon className="lyrics" />
+                <QueueMusicIcon className="queue" />
             </RightSection>
         </Nav>
     )
@@ -123,16 +133,118 @@ const LeftSection = styled.div`
     }
 `
 const MiddleSection = styled.div`
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 3px;
+
+        svg {
+            font-size: 1.5rem;
+            margin: 0 10px;
+            cursor: pointer;
+
+            &:hover {
+                color: var(--green);
+            }
+        }
+
+        .play-icon {
+            font-size: 2.5rem;
+        }
+    }
+
+    .slider {
+        display: flex;
+        align-items: center;
+
+        input {
+            width: 35rem;
+            height: 4px;
+            cursor: pointer;
+
+            &::-webkit-slider {
+                height: 5px;
+            }
+
+            &::-webkit-slider-thumb {
+                width: 15px;
+                height: 15px;
+            }
+        }
+    }
 `
 
 const CtView = styled.div`
+    margin: 0 10px;
+`
+
+const TtView = styled.div`
+    margin: 0 10px;
 
 `
 
-const TtView = styled.div``
-
 
 const RightSection = styled.div`
+    width: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    .lyrics {
+        margin: 0 10px;
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--green);
+        }
+    }
+
+    .queue {
+        margin: 0 10px;
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--green);
+        }
+    }
+
+    .volume {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        input {
+            width: 10rem;
+            height: 4px;
+            margin: 0 5px;
+            cursor: pointer;
+
+            &::-webkit-slider {
+                height: 5px;
+            }
+
+            &::-webkit-slider-thumb {
+                width: 15px;
+                height: 15px;
+            }
+        }
+
+        svg {
+            margin: 0 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+
+            &:hover {
+                color: var(--green);
+            }
+        }
+
+    }
 `
