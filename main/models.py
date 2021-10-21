@@ -74,3 +74,10 @@ class Song_model(models.Model):
 
     def total_likes(self):
         return self.likes.count()
+    
+class UserArtists(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name="user_choose_artists")
+    userartist = models.ForeignKey(Artists, on_delete=models.CASCADE, null=True, blank=True, related_name='user_artist')
+
+    def __str__(self):
+        return f"UserArtists({self.userartist}, {self.user.username})"
