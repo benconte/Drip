@@ -16,18 +16,79 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeMuteIcon from '@material-ui/icons/VolumeMute';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import player from './PlayerConfig'
+
+let song = '/static/song/Money Man - 24 (Official Video) (feat. Lil Baby).mp3';
+
+player.src = song;
 
 function Player(){
-    const [player, setPlayer] = useState()
-    const [volume, setVolume] = useState()
-    const handleSlider = (e) => {
-        setPlayer(e.target.value)
+    const [song_time, setSong_time] = useState(0);
+    const [isPlaying, setIs_playing] = useState(false);
+    const [volume, setVolume] = useState(100);
+    const [isMuted, setIsMuted] = useState(false);
+    const [ct_time, setCt_time] = useState("0:0");
+    const [Tt_time, setTT_time] = useState("00:00");
+    const [total_progress_value, set_progressValue] = useState(0);
+    const progress = document.getElementById("progress");
+    const [loop, setLoop] = useState(false);
+
+
+    player.onloadeddata = () => {
+        set_progressValue(player.duration);
+        const ds = parseInt(player.duration % 60)//getting seconds
+        const dm = parseInt((player.duration / 60) % 60)
+        setTT_time(dm + ':' + ds);
     }
+
+    player.ontimeupdate = () => {
+        // setSong_time(parseFloat(player.currentTime / player.duration) * 100)
+        setSong_time(parseFloat(player.currentTime))
+    }
+
+    player.addEventListener('timeupdate', () => {
+        const cs = parseInt(player.currentTime % 60);
+        const cm = parseInt((player.currentTime / 60) % 60);
+        setCt_time(cm + ':' + cs);
+    })
+
+    const handleSlider = (e) => {
+        player.currentTime = parseFloat(e.target.value);
+    }
+
+    // player.addEventListener('ended', () => {
+    //     player.currentTime = 0;
+    //     player.play()
+    // })
 
     const handleVolume = (e) => {
-        setVolume(e.target.value)
-
+        console.log((e.target.value / 100))
+        player.volume = e.target.value / 100;
+        setVolume((e.target.value))
     }
+
+    const play = () => {
+        if(isPlaying == false){
+            setIs_playing(!isPlaying);
+            // player.load()
+            player.play();
+        }else{
+            setIs_playing(!isPlaying);
+            player.pause();
+        }
+        
+    }
+    
+    const repeat = () => {
+        setLoop(!loop);
+        player.loop = !loop;
+    }
+
+    const handleMute = () => {
+        setIsMuted(!isMuted);
+        player.muted = !isMuted;
+    }
+
     return (
         <Nav>
             <LeftSection>
@@ -40,23 +101,33 @@ function Player(){
             </LeftSection>
             <MiddleSection>
                 <div className="controls">
-                    <LoopIcon />
+                    <LoopIcon onClick={() => repeat()} style={loop === true? {color: "var(--green)"} : {color: "#eee"}} />
                     <SkipPreviousIcon />
-                    <PlayArrowIcon className="play-icon" />
+                    
+                    { isPlaying? (
+                        <PauseIcon className="play-icon" onClick={() => play()} />
+                    ) : (
+                        <PlayArrowIcon className="play-icon" onClick={() => play()} />
+                    )}
                     <SkipNextIcon />
                     <ShuffleIcon />
                 </div>
                 <div className="slider">
-                    <CtView>00:00</CtView>
-                    <input type="range" min='0' max="100" value={player} onInput={(e) => handleSlider(e)} />
-                    <TtView>00:00</TtView>
+                    <CtView>{ct_time}</CtView>
+                    <input type="range" id="progress" min='0' max={total_progress_value} value={song_time} onInput={(e) => handleSlider(e)} />
+                    <TtView>{Tt_time}</TtView>
                 </div>
                 
             </MiddleSection>
             <RightSection>
                 <div className="volume">
                     <input type="range" min='0' max="100" value={volume} onInput={(e) => handleVolume(e)} />
-                    <VolumeUpIcon />
+                    { isMuted? (
+                        <VolumeMuteIcon style={{color: "var(--green)"}} onClick={() => handleMute()} />
+                    ) : (
+                        <VolumeUpIcon style={{color: "#eee"}} onClick={() => handleMute()} />
+                    )}
+                    
                 </div>
                 <FavoriteBorderIcon className="favorite" />
                 <MicIcon className="lyrics" />
@@ -175,8 +246,11 @@ const MiddleSection = styled.div`
             &::-webkit-slider-thumb {
                 width: 15px;
                 height: 15px;
+                -webkit-appearance: none;
+                appearance: none;
             }
         }
+
     }
 `
 
