@@ -1,101 +1,46 @@
 const store = [
     {
-        name: 'paul',
-        img: '/static/images/player2.jpg'
+        id: 0,
+        name: '24 Ft. Lil baby',
+        album: 'juicer By Hikaru',
+        artists: 'Money Man Ft. lil-baby',
+        img: '/static/images/Money_Man_-_24.png',
+        src: '/static/song/Money Man - 24 (Official Video) (feat. Lil Baby).mp3'
     },
     {
-        name: 'lorry',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'kim',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'larry',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'lesly',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'dick',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'paul',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'lorry',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'kim',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'larry',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'lesly',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'dick',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'paul',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'lorry',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'kim',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'larry',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'lesly',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'dick',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'paul',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'lorry',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'kim',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'larry',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'lesly',
-        img: '/static/images/player2.jpg'
-    },
-    {
-        name: 'dick',
-        img: '/static/images/player2.jpg'
-    },
+        id: 1,
+        name: 'Save your Tears',
+        album: '-',
+        artists: 'The Weeknd',
+        img: '/static/images/the_boondocks.jpg',
+        src: '/static/song/The Weeknd - Save Your Tears (Official Music Video).mp3'
 
+    },
+    {
+        id: 2,
+        name: 'Middle Child',
+        album: 'Lamar Cole',
+        artists: 'J.Cole',
+        img: '/static/images/default.png',
+        src: '/static/song/J. Cole - MIDDLE CHILD.mp3'
+    },
+    {
+        id: 3,
+        name: 'Island',
+        album: '-',
+        artists: 'Jarico',
+        img: '/static/images/Money_Man_-_24.png',
+        src: '/static/song/Jarico - Island.mp3'
+
+    },
+    {
+        id: 4,
+        name: 'Martin & Gina',
+        album: 'The GOAT',
+        artists: 'Polo G',
+        img: '/static/images/the_boondocks.jpg',
+        src: '/static/song/Polo G - Martin & Gina (Official Audio).mp3'
+    },
 ]
 
 export default store;

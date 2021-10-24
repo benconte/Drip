@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import QueueMusicIcon from '@material-ui/icons/QueueMusic';
 import AlbumIcon from '@material-ui/icons/Album';
@@ -17,21 +17,23 @@ import VolumeMuteIcon from '@material-ui/icons/VolumeMute';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import player from './PlayerConfig'
+import store from './store'
 
 let song = '/static/song/Money Man - 24 (Official Video) (feat. Lil Baby).mp3';
 
-player.src = song;
+// player.src = song;
 
-function Player(){
+function Player(props){
     const [song_time, setSong_time] = useState(0);
     const [isPlaying, setIs_playing] = useState(false);
-    const [volume, setVolume] = useState(100);
+    const [volume, setVolume] = useState(50);
     const [isMuted, setIsMuted] = useState(false);
     const [ct_time, setCt_time] = useState("0:0");
     const [Tt_time, setTT_time] = useState("00:00");
     const [total_progress_value, set_progressValue] = useState(0);
-    const progress = document.getElementById("progress");
     const [loop, setLoop] = useState(false);
+
+    const [currentSong, setCurentSong] = useState();
 
 
     player.onloadeddata = () => {
@@ -42,7 +44,6 @@ function Player(){
     }
 
     player.ontimeupdate = () => {
-        // setSong_time(parseFloat(player.currentTime / player.duration) * 100)
         setSong_time(parseFloat(player.currentTime))
     }
 
@@ -56,21 +57,32 @@ function Player(){
         player.currentTime = parseFloat(e.target.value);
     }
 
-    // player.addEventListener('ended', () => {
-    //     player.currentTime = 0;
-    //     player.play()
-    // })
-
     const handleVolume = (e) => {
-        console.log((e.target.value / 100))
         player.volume = e.target.value / 100;
         setVolume((e.target.value))
     }
 
+    // handling playing and fetching songs from passed in props or array
+    // takes in an index for the song to play
+    const handleMusic = async (i) => {
+        // if (currentSong.id != i){
+            // props.setPlaying_song(i);
+            setCurentSong(props.store.find(s => s.id === i))
+            console.log(currentSong)
+            player.src = props.store.find(s => s.id === i).src;
+            await player.load();
+            player.play();
+            setIs_playing(true);
+        // }
+        // else {
+        //     play();
+        // }
+    }
+
+
     const play = () => {
         if(isPlaying == false){
             setIs_playing(!isPlaying);
-            // player.load()
             player.play();
         }else{
             setIs_playing(!isPlaying);
@@ -89,6 +101,45 @@ function Player(){
         player.muted = !isMuted;
     }
 
+    const nextPlay = () => {
+        if(props.store){
+            if ((props.playing_song + 1) === props.store.length){
+                props.setPlaying_song(0);
+                return;
+            }
+            props.setPlaying_song(props.playing_song + 1);
+        }
+        
+
+    }
+
+    const prevPlay = () => {
+        if(props.store){
+            if(props.playing_song <= 0){
+                props.setPlaying_song(props.store.length - 1);
+                return;
+            }
+
+            props.setPlaying_song(props.playing_song - 1);
+            handleMusic(props.playing_song);
+        }
+        
+    }
+
+    player.addEventListener('ended', () => {
+        nextPlay();
+    })
+
+    useEffect(() => {
+        if (props.store !== undefined){
+            if (props.status){
+                handleMusic(props.playing_song);
+            }else {
+                play()
+            }
+        }
+    }, [props.store, props.status, props.playing_song])
+
     return (
         <Nav>
             <LeftSection>
@@ -102,14 +153,14 @@ function Player(){
             <MiddleSection>
                 <div className="controls">
                     <LoopIcon onClick={() => repeat()} style={loop === true? {color: "var(--green)"} : {color: "#eee"}} />
-                    <SkipPreviousIcon />
+                    <SkipPreviousIcon onClick={() => prevPlay()} />
                     
                     { isPlaying? (
                         <PauseIcon className="play-icon" onClick={() => play()} />
                     ) : (
                         <PlayArrowIcon className="play-icon" onClick={() => play()} />
                     )}
-                    <SkipNextIcon />
+                    <SkipNextIcon onClick={() => nextPlay()} />
                     <ShuffleIcon />
                 </div>
                 <div className="slider">
