@@ -68,7 +68,6 @@ function Player(props){
         // if (currentSong.id != i){
             // props.setPlaying_song(i);
             setCurentSong(props.store.find(s => s.id === i))
-            console.log(currentSong)
             player.src = props.store.find(s => s.id === i).src;
             await player.load();
             player.play();
@@ -143,12 +142,30 @@ function Player(props){
     return (
         <Nav>
             <LeftSection>
-                <img src="/static/images/the_boondocks.jpg" alt="image" />
-                <div className="song-info">
-                    <span>24 ft. lil Baby</span>
-                    <small><AlbumIcon /> Juice by Hikaru</small>
-                    <p><a href="#">Money Man</a> ft. <a href="#">lil-Baby</a></p>
-                </div>
+                { currentSong? (
+                    <>
+                        <img src={currentSong.img} alt={currentSong.name} />
+                        <div className="song-info">
+                            <span>{currentSong.name}</span>
+                            <small><AlbumIcon /> {currentSong.album}</small>
+                            <p>{currentSong.artists.map((art, index) => {
+                                return (
+                                    <a href="#" key={index}>{art}</a>, 
+                                )
+                            })}</p>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <NoSong>
+                            <AlbumIcon />
+                            <div className="song-info">
+                                <span>--Song--</span>
+                            </div>
+                        </NoSong>
+                    </>
+                )}
+                
             </LeftSection>
             <MiddleSection>
                 <div className="controls">
@@ -255,6 +272,24 @@ const LeftSection = styled.div`
         }
     }
 `
+
+const NoSong = styled.div`
+    display: flex;
+    align-items: center;
+
+    svg {
+        width: 55px;
+        height: 55px;
+        color: grey;
+    }
+
+    span {
+        font-weight: 600;
+        color: var(--light-color);
+
+    }
+`
+
 const MiddleSection = styled.div`
     display: flex;
     flex-direction: column;
