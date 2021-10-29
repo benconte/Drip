@@ -21,16 +21,23 @@ export default function App(){
     const [status, setStatus] = useState(false);
     return (
         <div>
-            <Leftnav />
-            <TopNav />
-            <Home store={data} updateStore={setData} playing_song={setPlaying_song} setStatus={setStatus} />
-            <Player 
-                store={data} 
-                playing_song={playing_song} 
-                setPlaying_song={setPlaying_song} 
-                status={status} 
-                setStatus={setStatus}
-            />
+            <Router>
+                <Leftnav />
+                <TopNav />
+                <Switch>
+                    <Route exact to={`/`}>
+                        <Home store={data} updateStore={setData} playing_song={setPlaying_song} setStatus={setStatus} />
+                    </Route>
+                </Switch>
+                <Player 
+                    store={data} 
+                    playing_song={playing_song} 
+                    setPlaying_song={setPlaying_song} 
+                    status={status} 
+                    setStatus={setStatus}
+                />
+            </Router>
+            
         </div>
     )
 }
