@@ -24,6 +24,7 @@ const Container = styled.div`
     height: 100%;
     padding-top: 5rem;
     margin-left: 240px;
+    margin-bottom: 50px;
 
     p {
         color: #717171;
