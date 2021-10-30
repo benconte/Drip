@@ -150,9 +150,9 @@ function Player(props){
                             <small><AlbumIcon /> {currentSong.album}</small>
                             <p>{currentSong.artists.map((art, index) => {
                                 return (
-                                <>
-                                    <a href="#" key={index}>{art}</a>, 
-                                </>
+                                    <>
+                                        <a href="#" key={index}>{art}</a>, 
+                                    </>
                                 )
                             })}</p>
                         </div>

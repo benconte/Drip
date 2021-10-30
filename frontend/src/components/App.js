@@ -7,11 +7,11 @@ import {
   } from "react-router-dom";
 import store from './store'
 
-import ChooseArtists from './HandleArtists/ChooseArtists'
+import ChooseArtists from './pages/HandleArtists/ChooseArtists'
 import Leftnav from './Leftnav';
 import TopNav from './TopNav';
 import Player from './Player';
-import Home from './home/Home';
+import Home from './pages/Home';
 
 export  const musicData = []
 
@@ -21,16 +21,23 @@ export default function App(){
     const [status, setStatus] = useState(false);
     return (
         <div>
-            <Leftnav />
-            <TopNav />
-            <Home store={data} updateStore={setData} playing_song={setPlaying_song} setStatus={setStatus} />
-            <Player 
-                store={data} 
-                playing_song={playing_song} 
-                setPlaying_song={setPlaying_song} 
-                status={status} 
-                setStatus={setStatus}
-            />
+            <Router>
+                <Leftnav />
+                <TopNav />
+                <Switch>
+                    <Route exact to={`/`}>
+                        <Home store={data} updateStore={setData} playing_song={setPlaying_song} setStatus={setStatus} />
+                    </Route>
+                </Switch>
+                <Player 
+                    store={data} 
+                    playing_song={playing_song} 
+                    setPlaying_song={setPlaying_song} 
+                    status={status} 
+                    setStatus={setStatus}
+                />
+            </Router>
+            
         </div>
     )
 }
