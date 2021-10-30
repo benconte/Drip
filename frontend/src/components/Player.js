@@ -222,6 +222,7 @@ const Nav = styled.div`
     justify-content: space-between;
     color: #eee;
     padding: 0 20px;
+    z-index: 16;
 `
 
 const LeftSection = styled.div`

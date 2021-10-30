@@ -91,6 +91,8 @@ const Nav = styled.div`
     align-items: center;
     jusitfy-content: space-between;
     padding: 0 20px;
+    z-index: 16;
+
 `
 
 const LeftSection = styled.div`

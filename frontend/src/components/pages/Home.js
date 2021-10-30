@@ -13,6 +13,9 @@ function Home(props){
     return (
         <Container>
             <Playlists />
+            <Playlists />
+            <Playlists />
+            <Playlists />
         </Container>
     )
 }
@@ -25,7 +28,8 @@ const Container = styled.div`
     padding-top: 5rem;
     margin-left: 240px;
     margin-bottom: 50px;
-
+    z-index: -1;
+    
     p {
         color: #717171;
     }

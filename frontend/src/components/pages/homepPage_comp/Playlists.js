@@ -139,7 +139,8 @@ function Playlists() {
 export default Playlists;
 
 const Container = styled.div`
-    width: 100%;
+    width: calc(100% - 10px);
+    margin-bottom: 15px;
 `
 
 const Main = styled.div`
