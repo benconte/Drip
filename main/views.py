@@ -9,6 +9,18 @@ from rest_framework.response import Response
 import json
 
 # Create your views here.
+@login_required
+def auth_status(request):
+    if(request.user.is_authenticated):
+        usr_img = json.dumps(str(request.user.profile.image))
+        profile = usr_img.replace('"', "")
+        return JsonResponse({
+            "id": request.user.id,
+            "username": request.user.username,
+            "profile": profile
+        }, status=status.HTTP_200_OK, safe=False)
+    return JsonResponse({'error': "Please Authenticate before continuing"}, status=status.HTTP_401_UNAUTHORIZED, safe=False)
+    
 
 class Artists_Serializers(generics.ListAPIView):
     queryset = Artists.objects.all()

@@ -9,6 +9,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from main.models import Artists, UserArtists
 
 # Create your views here.
+@login_required
 def index(request, *args, **kwargs):
     return render(request, 'frontend/index.html')
 

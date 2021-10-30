@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
@@ -14,7 +14,19 @@ import HelpIcon from '@material-ui/icons/Help';
 
 
 function TopNav(){
-    const [toggleDropdown, setToogleDropdown] = useState(false)
+    const [toggleDropdown, setToogleDropdown] = useState(false);
+    const [username, setUsername] = useState(undefined);
+    const image = "/static/images/default.png";
+    const [profile, setProfile] = useState(image);
+
+    useEffect(()=> {
+        fetch("/api/auth_status")
+        .then(res => res.json())
+        .then(data => {
+            setUsername(data.username);
+            setProfile("/media/"+data.profile);
+        })
+    }, [username, profile])
 
     return (
         <Nav>
@@ -30,8 +42,8 @@ function TopNav(){
                 <RightSection>  
                     <NotificationsNoneIcon />
                     <div className="profile">
-                        <span>Admin</span>
-                        <img src="/static/images/the_boondocks.jpg" alt="profile" onClick={() => setToogleDropdown(!toggleDropdown)} />
+                        <span>{username}</span>
+                        <img src={profile} alt={username} onClick={() => setToogleDropdown(!toggleDropdown)} />
 
                         { toggleDropdown && <DropDown>
                             <header>
