@@ -30,62 +30,60 @@ function TopNav(){
 
     return (
         <Nav>
-            {/* <Container> */}
-                <LeftSection>
-                    <form>
-                        <div className="input-section">
-                            <input type="search" placeholder="Search song, playlist, albums, artists and more..." />
-                            <button><SearchIcon /></button>
-                        </div>
-                    </form>
-                </LeftSection>
-                <RightSection>  
-                    <NotificationsNoneIcon />
-                    <div className="profile">
-                        <span>{username}</span>
-                        <img src={profile} alt={username} onClick={() => setToogleDropdown(!toggleDropdown)} />
-
-                        { toggleDropdown && <DropDown>
-                            <header>
-                                {/* <span className="menu">menu</span> */}
-                                <span><ClearIcon  onClick={() => setToogleDropdown(!toggleDropdown)} /></span>
-                            </header>
-                            <Content>
-                                <ul>
-                                    <li>
-                                        <PersonIcon />
-                                        Profile
-                                    </li>
-                                    <li>
-                                        <FavoriteIcon />
-                                        favorites
-                                    </li>
-                                    <li>
-                                        <AnnouncementIcon />
-                                        news
-                                    </li>
-                                    <li>
-                                        <SettingsIcon />
-                                        settings
-                                    </li>
-                                    <li>
-                                        <InfoIcon />
-                                        about us
-                                    </li>
-                                    <li>
-                                        <HelpIcon />
-                                        help
-                                    </li>
-                                    <li>
-                                        <ExitToAppIcon />
-                                        <a href="/logout">logout</a>
-                                    </li>
-                                </ul>
-                            </Content>
-                        </DropDown>}
+            <LeftSection>
+                <form>
+                    <div className="input-section">
+                        <input type="search" placeholder="Search song, playlist, albums, artists and more..." />
+                        <button type="submit"><SearchIcon /></button>
                     </div>
-                </RightSection>
-            {/* </Container> */}
+                </form>
+            </LeftSection>
+            <RightSection>  
+                <NotificationsNoneIcon />
+                <div className="profile">
+                    <span>{username}</span>
+                    <img src={profile} alt={username} onClick={() => setToogleDropdown(!toggleDropdown)} />
+
+                    { toggleDropdown && <DropDown>
+                        <header>
+                            {/* <span className="menu">menu</span> */}
+                            <span><ClearIcon  onClick={() => setToogleDropdown(!toggleDropdown)} /></span>
+                        </header>
+                        <Content>
+                            <ul>
+                                <li>
+                                    <PersonIcon />
+                                    Profile
+                                </li>
+                                <li>
+                                    <FavoriteIcon />
+                                    favorites
+                                </li>
+                                <li>
+                                    <AnnouncementIcon />
+                                    news
+                                </li>
+                                <li>
+                                    <SettingsIcon />
+                                    settings
+                                </li>
+                                <li>
+                                    <InfoIcon />
+                                    about us
+                                </li>
+                                <li>
+                                    <HelpIcon />
+                                    help
+                                </li>
+                                <li>
+                                    <ExitToAppIcon />
+                                    <a href="/logout">logout</a>
+                                </li>
+                            </ul>
+                        </Content>
+                    </DropDown>}
+                </div>
+            </RightSection>
         </Nav>
     )
 }
