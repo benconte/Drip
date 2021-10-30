@@ -2,7 +2,7 @@ import React from 'react'
 import Slider from "react-slick"
 import styled from 'styled-components'
 
-function Playlists() {
+function Playlists(props) {
     let settings = {
         dots: false,
         focusOnSelect: true,
@@ -40,96 +40,23 @@ function Playlists() {
             <Main>
                 <header>This week popular Playlists</header>
                 <Carousel {...settings}>
-                    <Wrap>
-                        <div className="playlist-data">
-                            <img src="/static/images/the_boondocks.jpg" alt="playlist" />
-                            <Content>
-                                <span>Playlists name</span>
-                                <small>Inspired artists</small>
-                            </Content>
-                        </div>
-                    </Wrap>
-                    <Wrap>
-                        <div className="playlist-data">
-                            <img src="/static/images/the_boondocks.jpg" alt="playlist" />
-                            <Content>
-                                <span>Playlists name</span>
-                                <small>Inspired artists</small>
-                            </Content>
-                        </div>
-                    </Wrap>
-                    <Wrap>
-                        <div className="playlist-data">
-                            <img src="/static/images/the_boondocks.jpg" alt="playlist" />
-                            <Content>
-                                <span>Playlists name</span>
-                                <small>Inspired artists</small>
-                            </Content>
-                        </div>
-                    </Wrap>
-                    <Wrap>
-                        <div className="playlist-data">
-                            <img src="/static/images/the_boondocks.jpg" alt="playlist" />
-                            <Content>
-                                <span>Playlists name</span>
-                                <small>Inspired artists</small>
-                            </Content>
-                        </div>
-                    </Wrap>
-                    <Wrap>
-                        <div className="playlist-data">
-                            <img src="/static/images/the_boondocks.jpg" alt="playlist" />
-                            <Content>
-                                <span>Playlists name</span>
-                                <small>Inspired artists</small>
-                            </Content>
-                        </div>
-                    </Wrap>
-                    <Wrap>
-                        <div className="playlist-data">
-                            <img src="/static/images/the_boondocks.jpg" alt="playlist" />
-                            <Content>
-                                <span>Playlists name</span>
-                                <small>Inspired artists</small>
-                            </Content>
-                        </div>
-                    </Wrap>
-                    <Wrap>
-                        <div className="playlist-data">
-                            <img src="/static/images/the_boondocks.jpg" alt="playlist" />
-                            <Content>
-                                <span>Playlists name</span>
-                                <small>Inspired artists</small>
-                            </Content>
-                        </div>
-                    </Wrap>
-                    <Wrap>
-                        <div className="playlist-data">
-                            <img src="/static/images/the_boondocks.jpg" alt="playlist" />
-                            <Content>
-                                <span>Playlists name</span>
-                                <small>Inspired artists</small>
-                            </Content>
-                        </div>
-                    </Wrap>
-                    <Wrap>
-                        <div className="playlist-data">
-                            <img src="/static/images/the_boondocks.jpg" alt="playlist" />
-                            <Content>
-                                <span>Playlists name</span>
-                                <small>Inspired artists</small>
-                            </Content>
-                        </div>
-                    </Wrap>
-                    <Wrap>
-                        <div className="playlist-data">
-                            <img src="/static/images/the_boondocks.jpg" alt="playlist" />
-                            <Content>
-                                <span>Playlists name</span>
-                                <small>Inspired artists</small>
-                            </Content>
-                        </div>
-                    </Wrap>
+                    { props.data && props.data.map((data, index) => {
+                        return (
+                            <Wrap key={index} >
+                                <div className="playlist-data">
+                                    <img src={data.playlist_img} alt="playlist" />
+                                    <Content>
+                                        <span>{data.name}</span>
+                                        <small>{
+                                            data.inspired.length > 25? data.inspired.slice(0, 22) + "..." : data.inspired
+                                        }
+                                        </small>
+                                    </Content>
+                                </div>
+                            </Wrap>
+                        )
+                    }) }
+                    
                 </Carousel>
             </Main>
         </Container>
@@ -144,6 +71,9 @@ const Container = styled.div`
 `
 
 const Main = styled.div`
+    margin-bottom: 15px;
+    height: 100%;
+
     header {
         width: 100%;
         height: 40px;
@@ -209,6 +139,7 @@ const Wrap = styled.div`
     justify-content: center;
     padding: 7px;
     margin-right: 10px;
+    height: 15rem;
 
     .playlist-data {
         width: 100%;

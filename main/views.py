@@ -1,7 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from .models import ( Artists, Song_Categories, Song_model )
+from .models import ( 
+    Artists, Song_Categories, Song_model, Playlists
+)
 from django.http import JsonResponse
-from .serializers import ArtistsSerializers
+from .serializers import (
+    ArtistsSerializers, PlaylistsSerializers
+)
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from django.contrib.auth.decorators import login_required
@@ -25,3 +29,8 @@ def auth_status(request):
 class Artists_Serializers(generics.ListAPIView):
     queryset = Artists.objects.all()
     serializer_class = ArtistsSerializers
+
+class Playlists_Serializers(generics.ListAPIView):
+    queryset = Playlists.objects.all()
+    serializer_class = PlaylistsSerializers
+
