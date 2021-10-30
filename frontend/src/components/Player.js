@@ -150,7 +150,9 @@ function Player(props){
                             <small><AlbumIcon /> {currentSong.album}</small>
                             <p>{currentSong.artists.map((art, index) => {
                                 return (
+                                <>
                                     <a href="#" key={index}>{art}</a>, 
+                                </>
                                 )
                             })}</p>
                         </div>
@@ -307,7 +309,10 @@ const MiddleSection = styled.div`
             cursor: pointer;
 
             &:hover {
-                color: var(--green);
+                // color: var(--green);
+                color: #eee;
+                background: #9292923d;
+                border-radius: 50%;
             }
         }
 
