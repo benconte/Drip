@@ -13,6 +13,7 @@
     --box-shadow: 0 0 0 0.15rem rgb(13 253 123 / 25%);
     --light-color: #bdb8d7;
     --transition: all .2s linear;
+    --white: #dfd2d2;
 }
 
 /* changing scrollbar width */
