@@ -61,27 +61,46 @@ function Songs(props){
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                    {store.map((row, index) => (
+                    {props.songs.map((row, index) => (
                         <TableRow
                         key={index}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
                                 <Cell>
-                                    <img src={row.img} className="song-img" alt={row.name} style={{width: "3rem", height: "3rem"}} />
+                                    <img src={'/media/'+row.img} className="song-img" alt={row.name} style={{width: "3rem", height: "3rem"}} />
                                     <PlayArrowIcon className="play-icon" />
                                 </Cell>
                             </TableCell>
                             <TableCell align="left" style={{color: "var(--green)", fontSize: "1rem"}}>
                                 <Cell>
                                     <span>{row.name}</span>
-                                    <small>{row.artists.map((art, indx) => {
+                                    <small>{row.authers.length > 3? (row.authers.slice(0, 2).map((art, indx) => {
+                                        console.log(indx)
                                         return (
                                             <>
-                                                <Link to={`/`} key={indx}>{art}. </Link> 
+                                                { indx === 1? (
+                                                    <>
+                                                        <Link to={`/`} key={indx}>{art}</Link>
+                                                        ...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <Link to={`/`} key={indx}>{art} </Link> 
+                                                        .
+                                                    </>
+                                                ) }
+                                                
                                             </>
                                             )
-                                        })}
+                                        })): row.authers.map((art, indx) => {
+                                            return (
+                                                <>
+                                                    <Link to={`/`} key={indx}>{art}</Link> 
+                                                    . 
+                                                </>
+                                                )
+                                            }) }
                                     </small>
                                 </Cell>
                                 
@@ -89,7 +108,7 @@ function Songs(props){
                             <TableCell align="left">
                                 <Cell>
                                     <Wrap>
-                                        <span>{row.album === null? '-' : (
+                                        <span>{row.album === '-'? '-' : (
                                             <Link to={`/album`}>{row.album}</Link>
                                         )}</span>
                                     </Wrap>
@@ -110,7 +129,7 @@ function Songs(props){
                                 </Cell>
                             </TableCell>
                             <TableCell align="left">
-                                <Cell>301,212</Cell>
+                                <Cell>{row.total_likes}</Cell>
                             </TableCell>
                             <TableCell align="left">
                                 <Cell>3.12</Cell>
@@ -209,6 +228,7 @@ const Cell = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex-wrap: wrap;
  
     small {
         a {

@@ -79,9 +79,9 @@ def getPlaylist_data(request, id):
                 "is_liked": is_liked,
                 "is_favorite": is_favorite,
                 "total_likes": dat.song_model.likes.count(),
-                "authers": artists_list
+                "authers": artists_list,
+                "album": dat.song_model.album.name if dat.song_model.album != None else "-"
             }) 
-        print(playlist.id)    
         return JsonResponse({
             "playlist_id": playlist.id,
             "playlist_name": playlist.name,

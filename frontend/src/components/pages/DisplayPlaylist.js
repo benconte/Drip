@@ -30,11 +30,10 @@ function DisplayPlaylist(){
     return (
         <Container>
             { playlist && (
-                <>
-                    <Header playlist={playlist} song_length={song_length} />
-                    <Songs songs={songs} song_length={song_length} />
-                </>
+                <Header playlist={playlist} song_length={song_length} />   
             )}
+
+            { songs && <Songs songs={songs} song_length={song_length} /> }
         </Container>
     )
 }
