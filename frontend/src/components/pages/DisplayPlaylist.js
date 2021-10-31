@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import Header from './display_Playlist_album/Header'

@@ -34,3 +34,6 @@ class Playlists_Serializers(generics.ListAPIView):
     queryset = Playlists.objects.all()
     serializer_class = PlaylistsSerializers
 
+
+def getPlaylist_data(request, id):
+    pass

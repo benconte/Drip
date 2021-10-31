@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import store from '../../store';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MicExternalOnIcon from '@mui/icons-material/MicExternalOn';
@@ -26,7 +27,8 @@ function Songs(props){
     return (
         <Container>
             <header>
-                Working <span>hours</span>
+                <button>Listen</button>
+                <MoreHorizIcon className="more" />
             </header>
             <TableContainer component={Paper} style={styles}>
                 <Table sx={{ minWidth: 450 }} aria-label="simple table">
@@ -138,6 +140,40 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     margin-top: 10px;
+
+    header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        button {
+            padding: 6px 30px;
+            border: none;
+            outline: none;
+            background: var(--green);
+            color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: .2rem;
+            margin-right: 10px;
+
+            &:hover {
+                background: #3aa861;
+            }
+        }
+
+        .more {
+            font-size: 2.3rem;
+            border: 1px solid #464646c4;
+            color: #eee;
+            cursor: pointer;
+
+            &:hover {
+                border: 1px solid #eee;
+            }
+        }
+    }
 
     tr {
         .song-img {
