@@ -13,7 +13,7 @@ const store = [
     {
         id: 1,
         name: 'Save your Tears',
-        album: '-',
+        album: null,
         artists: [
             'The Weeknd'
         ],
@@ -34,7 +34,7 @@ const store = [
     {
         id: 3,
         name: 'Island',
-        album: '-',
+        album: null,
         artists: [
             'Jarico'
         ],

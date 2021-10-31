@@ -12,6 +12,7 @@ import Leftnav from './Leftnav';
 import TopNav from './TopNav';
 import Player from './Player';
 import Home from './pages/Home';
+import DisplayPlaylist from './pages/DisplayPlaylist'
 
 export  const musicData = []
 
@@ -25,8 +26,11 @@ export default function App(){
                 <Leftnav />
                 <TopNav />
                 <Switch>
-                    <Route exact to={`/`}>
+                    <Route exact path={`/`}>
                         <Home store={data} updateStore={setData} playing_song={setPlaying_song} setStatus={setStatus} />
+                    </Route>
+                    <Route path={`/playlist/:id`}>
+                        <DisplayPlaylist />
                     </Route>
                 </Switch>
                 <Player 

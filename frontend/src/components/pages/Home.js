@@ -25,8 +25,8 @@ function Home(props){
 
     return (
         <Container>
-            <Playlists data={row1_data} />
-            <Playlists data={row1_data}  />
+            <Playlists data={row1_data} type="playlist" />
+            <Playlists data={row1_data} type="playlist" />
             <Playlists />
             <Playlists />
         </Container>
@@ -40,7 +40,7 @@ const Container = styled.div`
     height: 100%;
     padding-top: 5rem;
     margin-left: 240px;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     z-index: -1;
     display: block;
     

@@ -1,6 +1,9 @@
 import React from 'react'
 import Slider from "react-slick"
 import styled from 'styled-components'
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
+import { Link } from 'react-router-dom';
 
 function Playlists(props) {
     let settings = {
@@ -43,16 +46,19 @@ function Playlists(props) {
                     { props.data && props.data.map((data, index) => {
                         return (
                             <Wrap key={index} >
-                                <div className="playlist-data">
-                                    <img src={data.playlist_img} alt="playlist" />
-                                    <Content>
-                                        <span>{data.name}</span>
-                                        <small>{
-                                            data.inspired.length > 25? data.inspired.slice(0, 22) + "..." : data.inspired
-                                        }
-                                        </small>
-                                    </Content>
-                                </div>
+                                <PlayArrowIcon className="play-icon" />
+                                <Link to={`/playlist/${data.id}`}>
+                                    <div className="playlist-data">
+                                        <img src={data.playlist_img} alt="playlist" />
+                                        <Content>
+                                            <span>{data.name}</span>
+                                            <small>{
+                                                data.inspired.length > 25? data.inspired.slice(0, 22) + "..." : data.inspired
+                                            }
+                                            </small>
+                                        </Content>
+                                    </div>
+                                </Link>
                             </Wrap>
                         )
                     }) }
@@ -97,7 +103,7 @@ const Carousel = styled(Slider)`
 
     .slick-prev {
         top: -27px;
-        right: 65px;
+        right: 68px;
         left: auto;
     }
 
@@ -140,23 +146,53 @@ const Wrap = styled.div`
     padding: 7px;
     margin-right: 10px;
     height: 15rem;
+    position: relative;
 
-    .playlist-data {
-        width: 100%;
-        height: 100%;
-        border: 2px solid transparent;
-        border-radius: 7px;
-        overflow: hidden;
-        transition: var(--transition);
+    .play-icon {
+        position: absolute;
+        top: 30%;
+        left: 38%;
+        font-size: 4rem;
+        color: #fff;
+        opacity: 1;
+        display: none;
+        cursor: pointer;
+    }
 
-        img {
+    a {
+        text-decoration: none;
+
+        .playlist-data {
             width: 100%;
-            height: calc(100% - 56px);
+            height: 100%;
+            border: 2px solid transparent;
+            border-radius: 7px;
+            overflow: hidden;
+            transition: var(--transition);
+            z-index: -1;
+    
+            img {
+                width: 100%;
+                height: calc(100% - 56px);
+            }
+    
+            &:hover {
+                cursor: pointer;
+                border-color: var(--green);
+            }
+        }
+    }
+    
+
+    &:hover {
+        .play-icon {
+            display: block;
+            opacity: 1;
+            z-index: 1;
         }
 
-        &:hover {
-            cursor: pointer;
-            border-color: var(--green);
+        .playlist-data {
+            opacity: .7;
         }
     }
     
@@ -166,7 +202,7 @@ const Content = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0 5px;
+    padding: 2px 5px;
 
     span {
         font-weight: 500;

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import HomeIcon from '@material-ui/icons/Home';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import QueueMusicIcon from '@material-ui/icons/QueueMusic';
@@ -14,18 +14,24 @@ function Leftnav(){
             </header>
             <NavItems>
                 <ul>
-                    <li>
-                        <HomeIcon />
-                        <span>home</span>
-                    </li>
-                    <li>
-                        {/* <HomeMaxIcon /> */}
-                        <span>Discover</span>
-                    </li>
-                    <li>
-                        <RadioIcon />
-                        <span>radio</span>
-                    </li>
+                    <Link to={`/`} >
+                        <li>
+                            <HomeIcon />
+                            <span>home</span>
+                        </li>
+                    </Link>
+                    <Link>
+                        <li>
+                            {/* <HomeMaxIcon /> */}
+                            <span>Discover</span>
+                        </li>
+                    </Link>
+                    <Link>
+                        <li>
+                            <RadioIcon />
+                            <span>radio</span>
+                        </li>
+                    </Link>
                 </ul>
             </NavItems>
             <Playlists>
@@ -104,32 +110,37 @@ const NavItems = styled.div`
         padding: 0;
         color: #fff;
 
-        li {
-            width: 100%;
-            height: 50px;
-            border-bottom: 1px solid #222;
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-            font-weight: 400;
+        a {
+            text-decoration: none;
             color: #bdb8d7;
-            transition: .2s;
 
-            span {
+            li {
                 width: 100%;
-                height: 100%;
-                font-size: 20px;
-                padding-top: 8px;
-            }
+                height: 50px;
+                border-bottom: 1px solid #222;
+                display: flex;
+                align-items: center;
+                padding: 0 10px;
+                font-weight: 400;
+                color: #bdb8d7;
+                transition: .2s;
 
-            &:hover {
-                font-weight: bold;
-                cursor: pointer;
-                border-left: 4px solid var(--green);
-                color: #eee;
-            }
+                span {
+                    width: 100%;
+                    height: 100%;
+                    font-size: 20px;
+                    padding-top: 8px;
+                }
 
-        }
+                &:hover {
+                    font-weight: bold;
+                    cursor: pointer;
+                    border-left: 4px solid var(--green);
+                    color: #eee;
+                }
+
+            }
+        }   
     }
 
 
