@@ -78,7 +78,7 @@ function Songs(props){
                                     <small>{row.artists.map((art, indx) => {
                                         return (
                                             <>
-                                                <Link key={indx}>{art}. </Link> 
+                                                <Link to={`/`} key={indx}>{art}. </Link> 
                                             </>
                                             )
                                         })}

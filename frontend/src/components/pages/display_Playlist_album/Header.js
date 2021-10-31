@@ -3,16 +3,23 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom'
 
 function Header(props){
+    console.log(props.playlist)
     return (
         <Container>
-            {/* <h2 style={{color: "#fff"}}>your playlist id is {props.id} </h2> */}
-            <img src="/static/images/the_boondocks.jpg" alt="image" />
+            <img src={`/media/`+props.playlist.img} alt={props.playlist.name} />
             <Content>
-                <h3>playlist name</h3>
-                <span>inspired by: <Link>playlist</Link> . <Link>authers</Link> </span>
+                <h3>{props.playlist.name}</h3>
+                <span>inspired by: {props.playlist.authers.map((auther, index) => {
+                    return (
+                        <>
+                            <Link to={`/`}> {auther}</Link>
+                            <b> . </b>
+                        </>
+                    )
+                })} </span>
                 <p>Discover new, popular music similar to the artists you've been listening to lately</p>
-                <small>12 - tracks - 2hrs 35min</small>
-                <small>12,897,234 likes</small> 
+                <small>{props.song_length} - tracks - 2hrs 35min</small>
+                <small>{props.playlist.playlist_likes} likes</small> 
 
             </Content>
             
