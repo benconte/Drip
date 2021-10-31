@@ -79,6 +79,7 @@ def getPlaylist_data(request, id):
                 "is_liked": is_liked,
                 "is_favorite": is_favorite,
                 "total_likes": dat.song_model.likes.count(),
+                "song_auther_written": dat.song_model.song_auther_written,
                 "authers": artists_list,
                 "album": dat.song_model.album.name if dat.song_model.album != None else "-"
             }) 

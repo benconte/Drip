@@ -75,8 +75,9 @@ function Songs(props){
                             <TableCell align="left" style={{color: "var(--green)", fontSize: "1rem"}}>
                                 <Cell>
                                     <span>{row.name}</span>
-                                    <small>{row.authers.length > 3? (row.authers.slice(0, 2).map((art, indx) => {
-                                        console.log(indx)
+                                    <small>
+                                        {
+                                         row.authers !== null? row.authers.length > 3? (row.authers.slice(0, 2).map((art, indx) => {
                                         return (
                                             <>
                                                 { indx === 1? (
@@ -97,10 +98,10 @@ function Songs(props){
                                             return (
                                                 <>
                                                     <Link to={`/`} key={indx}>{art}</Link> 
-                                                    . 
+                                                    <b>. </b> 
                                                 </>
                                                 )
-                                            }) }
+                                            }) : row.song_auther_written }
                                     </small>
                                 </Cell>
                                 
