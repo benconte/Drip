@@ -16,14 +16,41 @@ import MicExternalOnIcon from '@mui/icons-material/MicExternalOn';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 const styles = {
-    width: "100%", 
-    // paddingLeft: 20, 
-    // PaddingRight: 20, 
-    background: "transparent",
-    color: '#eee'
+    table: {
+        width: "100%", 
+        background: "transparent",
+        color: '#eee'
+    },
+    row: {
+        color: "var(--green)"
+    }
+    
+}
+
+const shuffle = (array) => {
+    let currentIndex = array.length,  randomIndex;
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
 }
 
 function Songs(props){
+    
+    const playShuffledPlaylist = () => {
+        shuffle(props.songs);
+        console.log(shuffle(props.songs));
+        props.setStore(shuffle(props.songs))
+        props.setPlaying_song(0)
+        props.setStatus(true)
+    }
     const playSong = (i) => {
         props.setStore(props.songs)
         props.setPlaying_song(i)
@@ -32,10 +59,10 @@ function Songs(props){
     return (
         <Container>
             <header>
-                <button>Listen</button>
+                <button onClick={() => playShuffledPlaylist()}>Listen</button>
                 <MoreHorizIcon className="more" />
             </header>
-            <TableContainer component={Paper} style={styles}>
+            <TableContainer component={Paper} style={styles.table}>
                 <Table sx={{ minWidth: 450 }} aria-label="simple table">
                     <TableHead>
                     <TableRow>
