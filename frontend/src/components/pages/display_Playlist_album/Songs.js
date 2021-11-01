@@ -14,6 +14,10 @@ import store from '../../store';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MicExternalOnIcon from '@mui/icons-material/MicExternalOn';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faRandom } from '@fortawesome/free-solid-svg-icons'
+import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 
 const styles = {
     table: {
@@ -51,6 +55,13 @@ function Songs(props){
         props.setPlaying_song(0)
         props.setStatus(true)
     }
+
+    const handlePlaying = e => {
+        if(e.target.value === "shuffle"){
+            playShuffledPlaylist();
+        }
+    }
+
     const playSong = (i) => {
         props.setStore(props.songs)
         props.setPlaying_song(i)
@@ -59,7 +70,11 @@ function Songs(props){
     return (
         <Container>
             <header>
-                <button onClick={() => playShuffledPlaylist()}>Listen</button>
+                <select onChange={handlePlaying}>
+                    <option defaultCheck value="listen">Listen</option>
+                    <option value="shuffle">shuffle</option>
+                </select>
+                {/* <FontAwesomeIcon icon={faRandom} className="shuffle" onClick={() => playShuffledPlaylist()} /> */}
                 <MoreHorizIcon className="more" />
             </header>
             <TableContainer component={Paper} style={styles.table}>
@@ -198,7 +213,7 @@ const Container = styled.div`
         align-items: center;
         margin-bottom: 10px;
 
-        button {
+        select {
             padding: 6px 30px;
             border: none;
             outline: none;
@@ -210,8 +225,32 @@ const Container = styled.div`
             letter-spacing: .2rem;
             margin-right: 10px;
 
+            option {
+                background: #222;
+                margin: 5px 0;
+                color: #eee;
+
+                &:hover {
+                    background: #333;
+                    cursor: pointer;
+                }
+            }
+
             &:hover {
                 background: #3aa861;
+            }
+        }
+
+        .shuffle {
+            font-size: 2.3rem;
+            border: 1px solid #464646c4;
+            color: #eee;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 10px;
+
+            &:hover {
+                border: 1px solid #eee;
             }
         }
 

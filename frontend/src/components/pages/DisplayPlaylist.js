@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import Header from './display_Playlist_album/Header'
 import Songs from './display_Playlist_album/Songs'
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
 
 function DisplayPlaylist(props){
     const { id } = useParams()
@@ -33,13 +35,19 @@ function DisplayPlaylist(props){
                 <Header playlist={playlist} song_length={song_length} />   
             )}
 
-            { songs && <Songs 
+            { songs ? <Songs 
                 songs={songs} 
                 song_length={song_length} 
                 setStore={props.setData}
                 setPlaying_song={props.setPlaying_song}
                 setStatus={props.setStatus}
-            /> }
+            />: (
+                <Stack spacing={1}>
+                    <Skeleton variant="text" />
+                    <Skeleton variant="circular" width={40} height={40} />
+                    <Skeleton variant="rectangular" width={210} height={118} />
+                </Stack>
+            )}
         </Container>
     )
 }
