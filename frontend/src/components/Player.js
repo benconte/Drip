@@ -9,7 +9,7 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import ReplayIcon from '@material-ui/icons/Replay';
 import LoopIcon from '@material-ui/icons/Loop';
 import ShuffleIcon from '@material-ui/icons/Shuffle';
-// import MicExternalOnIcon from '@mui/icons-material/MicExternalOn';
+import MicExternalOnIcon from '@mui/icons-material/MicExternalOn';
 import MicIcon from '@material-ui/icons/Mic';
 import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
@@ -67,8 +67,9 @@ function Player(props){
     const handleMusic = async (i) => {
         // if (currentSong.id != i){
             // props.setPlaying_song(i);
-            setCurentSong(props.store.find(s => s.id === i))
-            player.src = props.store.find(s => s.id === i).src;
+            setCurentSong(props.store[i])
+            console.log(props.store[i])
+            player.src = "/media/"+props.store[i].song;
             await player.load();
             player.play();
             setIs_playing(true);
@@ -142,13 +143,13 @@ function Player(props){
     return (
         <Nav>
             <LeftSection>
-                { currentSong? (
+                { currentSong && currentSong? (
                     <>
-                        <img src={currentSong.img} alt={currentSong.name} />
+                        <img src={"/media/"+currentSong.img} alt={currentSong.name} />
                         <div className="song-info">
                             <span>{currentSong.name}</span>
-                            <small><AlbumIcon /> {currentSong.album}</small>
-                            <p>{currentSong.artists.map((art, index) => {
+                            {currentSong.album !== '-'? <small><AlbumIcon /> {currentSong.album}</small>:<></>}
+                            <p>{currentSong.authers.map((art, index) => {
                                 return (
                                     <>
                                         <a href="#" key={index}>{art}</a>, 

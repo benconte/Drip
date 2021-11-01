@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom'
 
 function Header(props){
-    console.log(props.playlist)
     return (
         <Container>
             <img src={`/media/`+props.playlist.img} alt={props.playlist.name} />

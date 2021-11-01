@@ -30,7 +30,13 @@ export default function App(){
                         <Home store={data} updateStore={setData} playing_song={setPlaying_song} setStatus={setStatus} />
                     </Route>
                     <Route path={`/playlist/:id`}>
-                        <DisplayPlaylist />
+                        <DisplayPlaylist 
+                            setData={setData} 
+                            playing_song={playing_song} 
+                            setPlaying_song={setPlaying_song} 
+                            status={status} 
+                            setStatus={setStatus} 
+                        />
                     </Route>
                 </Switch>
                 <Player 

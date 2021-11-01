@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Header from './display_Playlist_album/Header'
 import Songs from './display_Playlist_album/Songs'
 
-function DisplayPlaylist(){
+function DisplayPlaylist(props){
     const { id } = useParams()
     const [playlist, setPlaylist] = useState()
     const [songs, setSongs] = useState()
@@ -14,7 +14,7 @@ function DisplayPlaylist(){
         fetch("/api/getPlaylist_data/"+id)
         .then(res => res.json())
         .then(data => {
-            console.log(data.playlist_id)
+            console.log(data)
             setSong_length(data.songs.length);
             setPlaylist({
                 id: data.playlist_id,
@@ -26,14 +26,20 @@ function DisplayPlaylist(){
             setSongs(data.songs);
         })
     }, [id])
-    console.log(playlist)
+    console.log(songs)
     return (
         <Container>
             { playlist && (
                 <Header playlist={playlist} song_length={song_length} />   
             )}
 
-            { songs && <Songs songs={songs} song_length={song_length} /> }
+            { songs && <Songs 
+                songs={songs} 
+                song_length={song_length} 
+                setStore={props.setData}
+                setPlaying_song={props.setPlaying_song}
+                setStatus={props.setStatus}
+            /> }
         </Container>
     )
 }

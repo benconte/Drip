@@ -71,7 +71,7 @@ def getPlaylist_data(request, id):
                 is_favorite = False
 
             songs.append({
-                "id": dat.song_model.id,
+                "song_id": dat.song_model.id,
                 "img": img,
                 "song": song,
                 "name": dat.song_model.song_name,
