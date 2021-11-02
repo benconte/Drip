@@ -65,24 +65,18 @@ function Player(props){
     // handling playing and fetching songs from passed in props or array
     // takes in an index for the song to play
     const handleMusic = async (i) => {
-        if (currentSong === [] || props.store[i] != currentSong){
-            console.log(true)
+        // if (currentSong.id != i){
             // props.setPlaying_song(i);
-<<<<<<< HEAD
-            setCurentSong(props.store.find(s => s.id === i))
-            player.src = '/media/'+props.store.find(s => s.id === i).song;
-=======
             setCurentSong(props.store[i])
             console.log(props.store[i])
             player.src = "/media/"+props.store[i].song;
->>>>>>> 7e2766dcee072bbea106d5e9bbaf389a5b7bf10b
             await player.load();
             player.play();
             setIs_playing(true);
-        }
-        else {
-            play();
-        }
+        // }
+        // else {
+        //     play();
+        // }
     }
 
 
@@ -114,7 +108,6 @@ function Player(props){
                 return;
             }
             props.setPlaying_song(props.playing_song + 1);
-            props.setSong_id(props.store[props.playing_song + 1])
         }
         
 
@@ -140,31 +133,23 @@ function Player(props){
     useEffect(() => {
         if (props.store !== undefined){
             if (props.status){
-                handleMusic(props.song_id);
+                handleMusic(props.playing_song);
             }else {
                 play()
             }
         }
-    }, [props.store, props.status, props.playing_song, props.song_id])
+    }, [props.store, props.status, props.playing_song])
 
     return (
         <Nav>
             <LeftSection>
                 { currentSong && currentSong? (
                     <>
-<<<<<<< HEAD
-                        <img src={'/media/'+currentSong.img} alt={currentSong.name} />
-                        <div className="song-info">
-                            <span>{currentSong.name}</span>
-                            <small><AlbumIcon /> {currentSong.album}</small>
-                            <p>{currentSong.artists && currentSong.artists.map((art, index) => {
-=======
                         <img src={"/media/"+currentSong.img} alt={currentSong.name} />
                         <div className="song-info">
                             <span>{currentSong.name}</span>
                             {currentSong.album !== '-'? <small><AlbumIcon /> {currentSong.album}</small>:<></>}
                             <p>{currentSong.authers.map((art, index) => {
->>>>>>> 7e2766dcee072bbea106d5e9bbaf389a5b7bf10b
                                 return (
                                     <>
                                         <a href="#" key={index}>{art}</a>, 
