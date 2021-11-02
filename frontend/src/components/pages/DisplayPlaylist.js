@@ -3,11 +3,8 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import Header from './display_Playlist_album/Header'
 import Songs from './display_Playlist_album/Songs'
-
-// props received
-// props.updateStore(store);
-// props.playing_song(0);
-// props.setStatus(true);
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
 
 function DisplayPlaylist(props){
     const { id } = useParams()
@@ -19,7 +16,7 @@ function DisplayPlaylist(props){
         fetch("/api/getPlaylist_data/"+id)
         .then(res => res.json())
         .then(data => {
-            console.log(data.playlist_id)
+            console.log(data)
             setSong_length(data.songs.length);
             setPlaylist({
                 id: data.playlist_id,
@@ -31,22 +28,26 @@ function DisplayPlaylist(props){
             setSongs(data.songs);
         })
     }, [id])
-    console.log(playlist)
+    console.log(songs)
     return (
         <Container>
             { playlist && (
                 <Header playlist={playlist} song_length={song_length} />   
             )}
 
-            { songs && <Songs 
-                playlist={playlist} 
+            { songs ? <Songs 
                 songs={songs} 
-                song_length={song_length}
-                updateStore={props.updateStore}
-                playingSong={props.playing_song}
-                setSong_id={props.setSong_id}
-                playingStatus={props.setStatus}
-            /> }
+                song_length={song_length} 
+                setStore={props.setData}
+                setPlaying_song={props.setPlaying_song}
+                setStatus={props.setStatus}
+            />: (
+                <Stack spacing={1}>
+                    <Skeleton variant="text" />
+                    <Skeleton variant="circular" width={40} height={40} />
+                    <Skeleton variant="rectangular" width={210} height={118} />
+                </Stack>
+            )}
         </Container>
     )
 }

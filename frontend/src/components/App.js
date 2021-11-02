@@ -17,12 +17,8 @@ import DisplayPlaylist from './pages/DisplayPlaylist'
 export  const musicData = []
 
 export default function App(){
-    // array holding songs
     const [data, setData] = useState();
-    // the current playing song
     const [playing_song, setPlaying_song] = useState(0);
-    const [song_id, setSong_id] = useState(0);
-    // the playing status. true/false
     const [status, setStatus] = useState(false);
     return (
         <div>
@@ -35,18 +31,17 @@ export default function App(){
                     </Route>
                     <Route path={`/playlist/:id`}>
                         <DisplayPlaylist 
-                        store={data} 
-                        updateStore={setData} 
-                        playing_song={setPlaying_song} 
-                        setSong_id={setSong_id}
-                        setStatus={setStatus} />
+                            setData={setData} 
+                            playing_song={playing_song} 
+                            setPlaying_song={setPlaying_song} 
+                            status={status} 
+                            setStatus={setStatus} 
+                        />
                     </Route>
                 </Switch>
                 <Player 
                     store={data} 
                     playing_song={playing_song} 
-                    song_id={song_id}
-                    setSong_id={setSong_id}
                     setPlaying_song={setPlaying_song} 
                     status={status} 
                     setStatus={setStatus}

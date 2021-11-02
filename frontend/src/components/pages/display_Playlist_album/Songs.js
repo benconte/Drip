@@ -14,29 +14,70 @@ import store from '../../store';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MicExternalOnIcon from '@mui/icons-material/MicExternalOn';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faRandom } from '@fortawesome/free-solid-svg-icons'
+import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 
 const styles = {
-    width: "100%", 
-    // paddingLeft: 20, 
-    // PaddingRight: 20, 
-    background: "transparent",
-    color: '#eee'
+    table: {
+        width: "100%", 
+        background: "transparent",
+        color: '#eee'
+    },
+    row: {
+        color: "var(--green)"
+    }
+    
+}
+
+const shuffle = (array) => {
+    let currentIndex = array.length,  randomIndex;
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
 }
 
 function Songs(props){
-    const playSong = (id, song_id) => {
-        props.updateStore(props.songs)
-        props.playingSong(id)
-        props.setSong_id(song_id)
-        props.playingStatus(true);
+    
+    const playShuffledPlaylist = () => {
+        shuffle(props.songs);
+        console.log(shuffle(props.songs));
+        props.setStore(shuffle(props.songs))
+        props.setPlaying_song(0)
+        props.setStatus(true)
+    }
+
+    const handlePlaying = e => {
+        if(e.target.value === "shuffle"){
+            playShuffledPlaylist();
+        }
+    }
+
+    const playSong = (i) => {
+        props.setStore(props.songs)
+        props.setPlaying_song(i)
+        props.setStatus(true)
     }
     return (
         <Container>
             <header>
-                <button>Listen</button>
+                <select onChange={handlePlaying}>
+                    <option defaultCheck value="listen">Listen</option>
+                    <option value="shuffle">shuffle</option>
+                </select>
+                {/* <FontAwesomeIcon icon={faRandom} className="shuffle" onClick={() => playShuffledPlaylist()} /> */}
                 <MoreHorizIcon className="more" />
             </header>
-            <TableContainer component={Paper} style={styles}>
+            <TableContainer component={Paper} style={styles.table}>
                 <Table sx={{ minWidth: 450 }} aria-label="simple table">
                     <TableHead>
                     <TableRow>
@@ -75,7 +116,7 @@ function Songs(props){
                             <TableCell component="th" scope="row">
                                 <Cell>
                                     <img src={'/media/'+row.img} className="song-img" alt={row.name} style={{width: "3rem", height: "3rem"}} />
-                                    <PlayArrowIcon className="play-icon" onClick={() => playSong(index, row.id)} />
+                                    <PlayArrowIcon className="play-icon" onClick={() => playSong(index)} />
                                 </Cell>
                             </TableCell>
                             <TableCell align="left" style={{color: "var(--green)", fontSize: "1rem"}}>
@@ -172,7 +213,7 @@ const Container = styled.div`
         align-items: center;
         margin-bottom: 10px;
 
-        button {
+        select {
             padding: 6px 30px;
             border: none;
             outline: none;
@@ -184,8 +225,32 @@ const Container = styled.div`
             letter-spacing: .2rem;
             margin-right: 10px;
 
+            option {
+                background: #222;
+                margin: 5px 0;
+                color: #eee;
+
+                &:hover {
+                    background: #333;
+                    cursor: pointer;
+                }
+            }
+
             &:hover {
                 background: #3aa861;
+            }
+        }
+
+        .shuffle {
+            font-size: 2.3rem;
+            border: 1px solid #464646c4;
+            color: #eee;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 10px;
+
+            &:hover {
+                border: 1px solid #eee;
             }
         }
 
