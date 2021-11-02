@@ -4,7 +4,12 @@ import styled from 'styled-components'
 import Header from './display_Playlist_album/Header'
 import Songs from './display_Playlist_album/Songs'
 
-function DisplayPlaylist(){
+// props received
+// props.updateStore(store);
+// props.playing_song(0);
+// props.setStatus(true);
+
+function DisplayPlaylist(props){
     const { id } = useParams()
     const [playlist, setPlaylist] = useState()
     const [songs, setSongs] = useState()
@@ -33,7 +38,15 @@ function DisplayPlaylist(){
                 <Header playlist={playlist} song_length={song_length} />   
             )}
 
-            { songs && <Songs songs={songs} song_length={song_length} /> }
+            { songs && <Songs 
+                playlist={playlist} 
+                songs={songs} 
+                song_length={song_length}
+                updateStore={props.updateStore}
+                playingSong={props.playing_song}
+                setSong_id={props.setSong_id}
+                playingStatus={props.setStatus}
+            /> }
         </Container>
     )
 }

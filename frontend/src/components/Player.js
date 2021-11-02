@@ -68,7 +68,7 @@ function Player(props){
         // if (currentSong.id != i){
             // props.setPlaying_song(i);
             setCurentSong(props.store.find(s => s.id === i))
-            player.src = props.store.find(s => s.id === i).src;
+            player.src = '/media/'+props.store.find(s => s.id === i).song;
             await player.load();
             player.play();
             setIs_playing(true);
@@ -107,6 +107,7 @@ function Player(props){
                 return;
             }
             props.setPlaying_song(props.playing_song + 1);
+            props.setSong_id(props.store[props.playing_song + 1])
         }
         
 
@@ -132,23 +133,23 @@ function Player(props){
     useEffect(() => {
         if (props.store !== undefined){
             if (props.status){
-                handleMusic(props.playing_song);
+                handleMusic(props.song_id);
             }else {
                 play()
             }
         }
-    }, [props.store, props.status, props.playing_song])
+    }, [props.store, props.status, props.playing_song, props.song_id])
 
     return (
         <Nav>
             <LeftSection>
                 { currentSong? (
                     <>
-                        <img src={currentSong.img} alt={currentSong.name} />
+                        <img src={'/media/'+currentSong.img} alt={currentSong.name} />
                         <div className="song-info">
                             <span>{currentSong.name}</span>
                             <small><AlbumIcon /> {currentSong.album}</small>
-                            <p>{currentSong.artists.map((art, index) => {
+                            <p>{currentSong.artists && currentSong.artists.map((art, index) => {
                                 return (
                                     <>
                                         <a href="#" key={index}>{art}</a>, 

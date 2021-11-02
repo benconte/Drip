@@ -24,6 +24,12 @@ const styles = {
 }
 
 function Songs(props){
+    const playSong = (id, song_id) => {
+        props.updateStore(props.songs)
+        props.playingSong(id)
+        props.setSong_id(song_id)
+        props.playingStatus(true);
+    }
     return (
         <Container>
             <header>
@@ -69,7 +75,7 @@ function Songs(props){
                             <TableCell component="th" scope="row">
                                 <Cell>
                                     <img src={'/media/'+row.img} className="song-img" alt={row.name} style={{width: "3rem", height: "3rem"}} />
-                                    <PlayArrowIcon className="play-icon" />
+                                    <PlayArrowIcon className="play-icon" onClick={() => playSong(index, row.id)} />
                                 </Cell>
                             </TableCell>
                             <TableCell align="left" style={{color: "var(--green)", fontSize: "1rem"}}>
