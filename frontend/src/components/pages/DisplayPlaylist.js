@@ -16,7 +16,6 @@ function DisplayPlaylist(props){
         fetch("/api/getPlaylist_data/"+id)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             setSong_length(data.songs.length);
             setPlaylist({
                 id: data.playlist_id,
@@ -28,7 +27,6 @@ function DisplayPlaylist(props){
             setSongs(data.songs);
         })
     }, [id])
-    console.log(songs)
     return (
         <Container>
             { playlist && (
@@ -36,11 +34,17 @@ function DisplayPlaylist(props){
             )}
 
             { songs ? <Songs 
+                playlist={playlist}
                 songs={songs} 
                 song_length={song_length} 
                 setStore={props.setData}
                 setPlaying_song={props.setPlaying_song}
                 setStatus={props.setStatus}
+                setShow_lyrics_queu={props.setShow_lyrics_queu}
+                data={props.data}
+                playing_song={props.playing_song}
+                queu_playlist={props.queu_playlist}
+                setQueu_playlist={props.setQueu_playlist}
             />: (
                 <Stack spacing={1}>
                     <Skeleton variant="text" />
@@ -61,5 +65,4 @@ const Container = styled.div`
     margin-left: 240px;
     margin-bottom: 100px;
     z-index: -1;
-    display: block;
 `

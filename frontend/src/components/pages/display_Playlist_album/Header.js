@@ -10,10 +10,10 @@ function Header(props){
                 <h3>{props.playlist.name}</h3>
                 <span>inspired by: {props.playlist.authers.map((auther, index) => {
                     return (
-                        <>
+                        <span key={index}>
                             <Link to={`/`}> {auther}</Link>
                             <b> . </b>
-                        </>
+                        </span>
                     )
                 })} </span>
                 <p>Discover new, popular music similar to the artists you've been listening to lately</p>

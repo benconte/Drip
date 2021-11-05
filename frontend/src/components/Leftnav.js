@@ -20,13 +20,13 @@ function Leftnav(){
                             <span>home</span>
                         </li>
                     </Link>
-                    <Link>
+                    <Link to={`/`} >
                         <li>
                             {/* <HomeMaxIcon /> */}
                             <span>Discover</span>
                         </li>
                     </Link>
-                    <Link>
+                    <Link to={`/`} >
                         <li>
                             <RadioIcon />
                             <span>radio</span>

@@ -65,7 +65,8 @@ function Player(props){
     // handling playing and fetching songs from passed in props or array
     // takes in an index for the song to play
     const handleMusic = async (i) => {
-        // if (currentSong.id != i){
+        if (currentSong === [] || props.store[i] != currentSong){
+            console.log(true)
             // props.setPlaying_song(i);
             setCurentSong(props.store[i])
             console.log(props.store[i])
@@ -73,10 +74,10 @@ function Player(props){
             await player.load();
             player.play();
             setIs_playing(true);
-        // }
-        // else {
-        //     play();
-        // }
+        }
+        else {
+            play();
+        }
     }
 
 
@@ -223,10 +224,11 @@ const Nav = styled.div`
     justify-content: space-between;
     color: #eee;
     padding: 0 20px;
-    z-index: 16;
+    z-index: 20;
 `
 
 const LeftSection = styled.div`
+    width: 17rem;
     display: flex;
     align-items: center;
 
@@ -370,6 +372,17 @@ const RightSection = styled.div`
 
         &:hover {
             color: var(--green);
+        }
+    }
+
+    .lyrics-disabled {
+        color: rgba(249,249,259,.2);
+        margin: 0 10px;
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        &:hover {
+            color: #999797;
         }
     }
 

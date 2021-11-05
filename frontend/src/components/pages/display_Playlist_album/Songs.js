@@ -13,11 +13,13 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import store from '../../store';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MicExternalOnIcon from '@mui/icons-material/MicExternalOn';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { faRandom } from '@fortawesome/free-solid-svg-icons'
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
+import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 
 const styles = {
     table: {
@@ -67,11 +69,37 @@ function Songs(props){
         props.setPlaying_song(i)
         props.setStatus(true)
     }
+
+    const pauseSong = () => {
+        props.setStatus(false);
+    }
+
+    const showLyrics = (i) => {
+        if(props.queu_playlist){
+            if(props.queu_playlist.id === props.playlist.id){
+                if(props.data[props.playing_song].song_id === props.songs[i].song_id){
+                    props.setShow_lyrics_queu(true);
+                }else {
+                    props.setShow_lyrics_queu(true);
+                    playSong(i);
+                }
+            }else {
+                props.setQueu_playlist(props.playlist);
+                props.setShow_lyrics_queu(true);
+                playSong(i);
+            }
+        }else {
+            props.setQueu_playlist(props.playlist);
+            props.setShow_lyrics_queu(true);
+            playSong(i);
+        } 
+    }
+
     return (
         <Container>
             <header>
                 <select onChange={handlePlaying}>
-                    <option defaultCheck value="listen">Listen</option>
+                    <option value="listen">Listen</option>
                     <option value="shuffle">shuffle</option>
                 </select>
                 {/* <FontAwesomeIcon icon={faRandom} className="shuffle" onClick={() => playShuffledPlaylist()} /> */}
@@ -108,90 +136,186 @@ function Songs(props){
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                    {props.songs.map((row, index) => (
-                        <TableRow
-                        key={index}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row">
-                                <Cell>
-                                    <img src={'/media/'+row.img} className="song-img" alt={row.name} style={{width: "3rem", height: "3rem"}} />
-                                    <PlayArrowIcon className="play-icon" onClick={() => playSong(index)} />
-                                </Cell>
-                            </TableCell>
-                            <TableCell align="left" style={{color: "var(--green)", fontSize: "1rem"}}>
-                                <Cell>
-                                    <span>{row.name}</span>
-                                    <small>
-                                        {
-                                         row.authers !== null? row.authers.length > 3? (row.authers.slice(0, 2).map((art, indx) => {
-                                        return (
-                                            <>
-                                                { indx === 1? (
-                                                    <>
-                                                        <Link to={`/`} key={indx}>{art}</Link>
-                                                        ...
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <Link to={`/`} key={indx}>{art} </Link> 
-                                                        .
-                                                    </>
-                                                ) }
-                                                
-                                            </>
-                                            )
-                                        })): row.authers.map((art, indx) => {
-                                            return (
-                                                <>
-                                                    <Link to={`/`} key={indx}>{art}</Link> 
-                                                    <b>. </b> 
-                                                </>
-                                                )
-                                            }) : row.song_auther_written }
-                                    </small>
-                                </Cell>
-                                
-                            </TableCell>
-                            <TableCell align="left">
-                                <Cell>
-                                    <Wrap>
-                                        <span>{row.album === '-'? '-' : (
-                                            <Link to={`/album`}>{row.album}</Link>
-                                        )}</span>
-                                    </Wrap>
-                                </Cell>
-                            </TableCell>
-                            <TableCell align="left">
-                                <Cell>
-                                    <Wrap>
-                                        <MicExternalOnIcon />       
-                                    </Wrap>
-                                </Cell>
-                            </TableCell>
-                            <TableCell align="left">
-                                <Cell>
-                                    <Wrap>
-                                        <FavoriteBorderIcon />
-                                    </Wrap>
-                                </Cell>
-                            </TableCell>
-                            <TableCell align="left">
-                                <Cell>{row.total_likes}</Cell>
-                            </TableCell>
-                            <TableCell align="left">
-                                <Cell>3.12</Cell>
-                            </TableCell>
-                            <TableCell align="left">
-                                <Cell>
-                                    <Wrap>
-                                        <MoreVertIcon />
-                                    </Wrap>
-                                </Cell>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
+                    {props.songs.map((row, index) => {
+                        return(
+                            <>
+                                {row.song_id === 14 ? 
+                                <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} className="playing">
+                                    <TableCell component="th" scope="row">
+                                        <Cell>
+                                            <img src={'/media/'+row.img} className="song-img" alt={row.name} style={{width: "3rem", height: "3rem"}} />
+                                            <PlayArrowIcon className="play-icon" onClick={() => playSong(index)} />
+                                            <GraphicEqIcon className="equalizer" />
+                                            <PauseIcon className="pause-icon" onClick={() => pauseSong()} />
+                                        </Cell>
+                                    </TableCell>
+                                    <TableCell align="left" style={{color: "var(--green)", fontSize: "1rem"}}>
+                                        <Cell>
+                                            <span>{row.name}</span>
+                                            <small>
+                                                {
+                                                row.authers !== null? 
+                                                    row.authers.length > 3? 
+                                                        (row.authers.slice(0, 2).map((art, indx) => {
+                                                            return (
+                                                                <span key={indx}>
+                                                                    { indx === 1? (
+                                                                        <span key={indx}>
+                                                                            <Link to={`/`}>{art}</Link>
+                                                                            ...
+                                                                        </span>
+                                                                    ) : (
+                                                                        <span key={indx}>
+                                                                            <Link to={`/`}>{art} </Link> 
+                                                                            .
+                                                                        </span>
+                                                                    ) }
+                                                                    
+                                                                </span>
+                                                                )
+                                                            }))
+                                                    : row.authers.map((art, indx) => {
+                                                        return (
+                                                            <span key={indx}>
+                                                                <Link to={`/`}>{art}</Link> 
+                                                                <b>. </b> 
+                                                            </span>
+                                                            )
+                                                        }
+                                                    ) 
+                                                : row.song_auther_written }
+                                            </small>
+                                        </Cell>
+                                        
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <Cell>
+                                            <Wrap>
+                                                <span>{row.album === '-'? '-' : (
+                                                    <Link to={`/album`}>{row.album}</Link>
+                                                )}</span>
+                                            </Wrap>
+                                        </Cell>
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <Cell>
+                                            <Wrap>
+                                                <MicExternalOnIcon onClick={() => showLyrics(index)} />       
+                                            </Wrap>
+                                        </Cell>
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <Cell>
+                                            <Wrap>
+                                                <FavoriteBorderIcon />
+                                            </Wrap>
+                                        </Cell>
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <Cell>{row.total_likes}</Cell>
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <Cell>3.12</Cell> 
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <Cell>
+                                            <Wrap>
+                                                <MoreVertIcon />
+                                            </Wrap>
+                                        </Cell>
+                                    </TableCell>
+                                </TableRow>
+                                :
+                                <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} className="not-playing">
+                                    <TableCell component="th" scope="row">
+                                        <Cell>
+                                            <img src={'/media/'+row.img} className="song-img" alt={row.name} style={{width: "3rem", height: "3rem"}} />
+                                            <PlayArrowIcon className="play-icon" onClick={() => playSong(index)} />
+                                        </Cell>
+                                    </TableCell>
+                                    <TableCell align="left"style={{color: "var(--green)", fontSize: "1rem"}}>
+                                        <Cell>
+                                            <span>{row.name}</span>
+                                            <small>
+                                                {
+                                                row.authers !== null? 
+                                                    row.authers.length > 3? 
+                                                        (row.authers.slice(0, 2).map((art, indx) => {
+                                                            return (
+                                                                <span key={indx}>
+                                                                    { indx === 1? (
+                                                                        <span key={indx}>
+                                                                            <Link to={`/`}>{art}</Link>
+                                                                            ...
+                                                                        </span>
+                                                                    ) : (
+                                                                        <span key={indx}>
+                                                                            <Link to={`/`}>{art} </Link> 
+                                                                            .
+                                                                        </span>
+                                                                    ) }
+                                                                    
+                                                                </span>
+                                                                )
+                                                            }))
+                                                    : row.authers.map((art, indx) => {
+                                                        return (
+                                                            <span key={indx}>
+                                                                <Link to={`/`}>{art}</Link> 
+                                                                <b>. </b> 
+                                                            </span>
+                                                            )
+                                                        }
+                                                    ) 
+                                                : row.song_auther_written }
+                                            </small>
+                                        </Cell>
+                                        
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <Cell>
+                                            <Wrap>
+                                                <span>{row.album === '-'? '-' : (
+                                                    <Link to={`/album`}>{row.album}</Link>
+                                                )}</span>
+                                            </Wrap>
+                                        </Cell>
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <Cell>
+                                            <Wrap>
+                                                <MicExternalOnIcon onClick={() => showLyrics(index)} />       
+                                            </Wrap>
+                                        </Cell>
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <Cell>
+                                            <Wrap>
+                                                <FavoriteBorderIcon />
+                                            </Wrap>
+                                        </Cell>
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <Cell>{row.total_likes}</Cell>
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <Cell>3.12</Cell>
+                                    </TableCell>
+                                    <TableCell align="left">
+                                        <Cell>
+                                            <Wrap>
+                                                <MoreVertIcon />
+                                            </Wrap>
+                                        </Cell>
+                                    </TableCell>
+                                </TableRow>
+                                }
+                            
+                            </>
+                        )}
+                        )
+                    }
+                    </TableBody> 
                 </Table>
             </TableContainer>
         </Container>
@@ -266,7 +390,51 @@ const Container = styled.div`
         }
     }
 
-    tr {
+    .playing {
+        .song-img {
+            display: none;
+        }
+        .play-icon {
+            display: none;
+        }
+
+        .pause-icon {
+            display: none;
+        }
+
+        .equalizer {
+            width: 3rem;
+            height: 3rem;
+            cursor: pointer;
+            color: var(--green);
+        }
+    }
+
+    .playing:hover {
+        background: rgba(51,51,51,0.45);
+
+        .song-img {
+            display: none;
+        }
+
+        .play-icon {
+            display: none;
+        }
+
+        .equalizer {
+            display: none;
+        }
+
+        .pause-icon {
+            display: block;
+            width: 3rem;
+            height: 3rem;
+            cursor: pointer;
+            color: var(--green);
+        }
+    }
+
+    .not-playing {
         .song-img {
             display: block;
         }
@@ -277,7 +445,8 @@ const Container = styled.div`
             cursor: pointer;
         }
     }
-    tr:hover {
+
+    .not-playing:hover {
         background: rgba(51,51,51,0.45);
 
         .song-img {
