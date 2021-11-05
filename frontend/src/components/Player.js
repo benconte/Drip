@@ -83,10 +83,10 @@ function Player(props){
 
     const play = () => {
         if(isPlaying == false){
-            setIs_playing(!isPlaying);
+            // setIs_playing(!isPlaying);
             player.play();
         }else{
-            setIs_playing(!isPlaying);
+            // setIs_playing(!isPlaying);
             player.pause();
         }
         

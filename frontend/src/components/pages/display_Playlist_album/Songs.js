@@ -151,7 +151,7 @@ function Songs(props){
                                     </TableCell>
                                     <TableCell align="left" style={{color: "var(--green)", fontSize: "1rem"}}>
                                         <Cell>
-                                            <span>{row.name}</span>
+                                            <span style={{color: 'var(--green)'}}>{row.name}</span>
                                             <small>
                                                 {
                                                 row.authers !== null? 
@@ -191,7 +191,7 @@ function Songs(props){
                                     <TableCell align="left">
                                         <Cell>
                                             <Wrap>
-                                                <span>{row.album === '-'? '-' : (
+                                                <span style={{color: 'var(--green)'}}>{row.album === '-'? '-' : (
                                                     <Link to={`/album`}>{row.album}</Link>
                                                 )}</span>
                                             </Wrap>
@@ -200,27 +200,27 @@ function Songs(props){
                                     <TableCell align="left">
                                         <Cell>
                                             <Wrap>
-                                                <MicExternalOnIcon onClick={() => showLyrics(index)} />       
+                                                <MicExternalOnIcon style={{color: 'var(--green)'}} onClick={() => showLyrics(index)} />       
                                             </Wrap>
                                         </Cell>
                                     </TableCell>
                                     <TableCell align="left">
                                         <Cell>
                                             <Wrap>
-                                                <FavoriteBorderIcon />
+                                                <FavoriteBorderIcon style={{color: 'var(--green)'}} />
                                             </Wrap>
                                         </Cell>
                                     </TableCell>
                                     <TableCell align="left">
-                                        <Cell>{row.total_likes}</Cell>
+                                        <Cell style={{color: 'var(--green)'}}>{row.total_likes}</Cell>
                                     </TableCell>
                                     <TableCell align="left">
-                                        <Cell>3.12</Cell> 
+                                        <Cell style={{color: 'var(--green)'}}>3.12</Cell> 
                                     </TableCell>
                                     <TableCell align="left">
                                         <Cell>
                                             <Wrap>
-                                                <MoreVertIcon />
+                                                <MoreVertIcon style={{color: 'var(--green)'}} />
                                             </Wrap>
                                         </Cell>
                                     </TableCell>
@@ -410,8 +410,16 @@ const Container = styled.div`
         }
     }
 
+    th {
+        border-color: #56565670;
+    }
+
+    td {
+        border-color: #56565670;
+    }
+
     .playing:hover {
-        background: rgba(51,51,51,0.45);
+        background: #060606;
 
         .song-img {
             display: none;
