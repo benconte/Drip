@@ -4,7 +4,6 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Link} from 'react-router-dom'
 
 function Lyrics(props){
-    console.log(props.song.song_auther_written)
     return (
         <Container style={{display: props.show_lyrics_queu? 'block' : 'none'}}>
             <header>

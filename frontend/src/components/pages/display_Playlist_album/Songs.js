@@ -20,6 +20,8 @@ import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
 
 const styles = {
     table: {
@@ -52,7 +54,6 @@ function Songs(props){
     
     const playShuffledPlaylist = () => {
         shuffle(props.songs);
-        console.log(shuffle(props.songs));
         props.setStore(shuffle(props.songs))
         props.setPlaying_song(0)
         props.setStatus(true)
@@ -68,6 +69,7 @@ function Songs(props){
         props.setStore(props.songs)
         props.setPlaying_song(i)
         props.setStatus(true)
+        // props.setIs_playing(true)
     }
 
     const pauseSong = () => {
@@ -94,7 +96,6 @@ function Songs(props){
             playSong(i);
         } 
     }
-
     return (
         <Container>
             <header>
@@ -138,15 +139,19 @@ function Songs(props){
                     <TableBody>
                     {props.songs.map((row, index) => {
                         return(
-                            <>
-                                {row.song_id === 14 ? 
+                            <React.Fragment key={index}>
+                                { 
+                                props.data && row.song_id === props.data[props.playing_song].song_id ? 
                                 <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} className="playing">
                                     <TableCell component="th" scope="row">
                                         <Cell>
                                             <img src={'/media/'+row.img} className="song-img" alt={row.name} style={{width: "3rem", height: "3rem"}} />
-                                            <PlayArrowIcon className="play-icon" onClick={() => playSong(index)} />
                                             <GraphicEqIcon className="equalizer" />
-                                            <PauseIcon className="pause-icon" onClick={() => pauseSong()} />
+                                            {props.isPlaying? 
+                                                <PauseIcon className="play-status" onClick={() => pauseSong()} />
+                                            : 
+                                                <PlayArrowIcon className="play-status" onClick={() => playSong(index)} />
+                                            }
                                         </Cell>
                                     </TableCell>
                                     <TableCell align="left" style={{color: "var(--green)", fontSize: "1rem"}}>
@@ -154,7 +159,7 @@ function Songs(props){
                                             <span style={{color: 'var(--green)'}}>{row.name}</span>
                                             <small>
                                                 {
-                                                row.authers !== null? 
+                                                row.authers !== []? 
                                                     row.authers.length > 3? 
                                                         (row.authers.slice(0, 2).map((art, indx) => {
                                                             return (
@@ -183,7 +188,7 @@ function Songs(props){
                                                             )
                                                         }
                                                     ) 
-                                                : row.song_auther_written }
+                                                : <span>{row.song_auther_written}</span> }
                                             </small>
                                         </Cell>
                                         
@@ -191,8 +196,8 @@ function Songs(props){
                                     <TableCell align="left">
                                         <Cell>
                                             <Wrap>
-                                                <span style={{color: 'var(--green)'}}>{row.album === '-'? '-' : (
-                                                    <Link to={`/album`}>{row.album}</Link>
+                                                <span>{row.album === '-'? '-' : (
+                                                    <Link to={`/album`} style={{color: 'var(--green)'}}>{row.album}</Link>
                                                 )}</span>
                                             </Wrap>
                                         </Cell>
@@ -311,7 +316,7 @@ function Songs(props){
                                 </TableRow>
                                 }
                             
-                            </>
+                            </React.Fragment>
                         )}
                         )
                     }
@@ -391,14 +396,13 @@ const Container = styled.div`
     }
 
     .playing {
+        background: #060606;
+
         .song-img {
             display: none;
         }
-        .play-icon {
-            display: none;
-        }
 
-        .pause-icon {
+        .play-status {
             display: none;
         }
 
@@ -419,13 +423,7 @@ const Container = styled.div`
     }
 
     .playing:hover {
-        background: #060606;
-
         .song-img {
-            display: none;
-        }
-
-        .play-icon {
             display: none;
         }
 
@@ -433,7 +431,7 @@ const Container = styled.div`
             display: none;
         }
 
-        .pause-icon {
+        .play-status {
             display: block;
             width: 3rem;
             height: 3rem;
@@ -497,7 +495,6 @@ const Wrap = styled.div`
     font-size: 1rem;   
 
     a {
-        text-decoration: none;
         color: #eee;
     }
     &:hover {

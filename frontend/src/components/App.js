@@ -22,6 +22,7 @@ export default function App(){
     const [data, setData] = useState();
     const [queu_playlist, setQueu_playlist] = useState();
     const [playing_song, setPlaying_song] = useState(0);
+    const [isPlaying, setIs_playing] = useState(false);
     const [status, setStatus] = useState(false);
     const [show_lyrics_queu, setShow_lyrics_queu] = useState(false);
     const [type, setType] = useState("lyrics");
@@ -34,7 +35,14 @@ export default function App(){
                 {show_lyrics_queu === false && 
                 <Switch>
                     <Route exact path={`/`}>
-                        <Home store={data} updateStore={setData} playing_song={setPlaying_song} setStatus={setStatus} />
+                        <Home 
+                            store={data} 
+                            updateStore={setData} 
+                            playing_song={setPlaying_song} 
+                            setStatus={setStatus} 
+                            isPlaying={isPlaying}
+                            setIs_playing={setIs_playing}
+                        />
                     </Route>
                     <Route path={`/playlist/:id`}>
                         <DisplayPlaylist 
@@ -48,6 +56,8 @@ export default function App(){
                             setShow_lyrics_queu={setShow_lyrics_queu}
                             queu_playlist={queu_playlist}
                             setQueu_playlist={setQueu_playlist}
+                            isPlaying={isPlaying}
+                            setIs_playing={setIs_playing}
                         />
                     </Route>
                 </Switch>
@@ -66,6 +76,8 @@ export default function App(){
                     setPlaying_song={setPlaying_song} 
                     status={status} 
                     setStatus={setStatus}
+                    isPlaying={isPlaying}
+                    setIs_playing={setIs_playing}
                 />
             </Router>
             

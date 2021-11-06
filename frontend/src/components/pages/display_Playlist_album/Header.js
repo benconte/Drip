@@ -1,27 +1,53 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 
 function Header(props){
     return (
         <Container>
-            <img src={`/media/`+props.playlist.img} alt={props.playlist.name} />
+            {/* <Stack spacing={1}>
+                <Skeleton variant="text" />
+                <Skeleton variant="circular" width={40} height={40} />
+                <Skeleton variant="rectangular" width={210} height={118} />
+            </Stack> */}
+            {props.playlist.img? 
+                <img src={`/media/`+props.playlist.img} alt={props.playlist.name} />
+            :
+                <Stack spacing={1}>
+                    <Skeleton animation="wave" variant="rectangular" width={210} height={118} />
+                </Stack>
+            }
             <Content>
-                <h3>{props.playlist.name}</h3>
-                <span>inspired by: {props.playlist.authers.map((auther, index) => {
-                    return (
-                        <span key={index}>
-                            <Link to={`/`}> {auther}</Link>
-                            <b> . </b>
+                {props.playlist ? 
+                    <>
+                        <h3>{props.playlist.name}</h3>
+                        <span>inspired by: {props.playlist.authers.map((auther, index) => {
+                            return (
+                                <span key={index}>
+                                    <Link to={`/`}> {auther}</Link>
+                                    <b> . </b>
+                                </span>
+                            )
+                            })} 
                         </span>
-                    )
-                })} </span>
-                <p>Discover new, popular music similar to the artists you've been listening to lately</p>
-                <small>{props.song_length} - tracks - 2hrs 35min</small>
-                <small>{props.playlist.playlist_likes} likes</small> 
-
+                        <p>Discover new, popular music similar to the artists you've been listening to lately</p>
+                        <small>{props.song_length} - tracks - 2hrs 35min</small>
+                        <small>{props.playlist.playlist_likes} likes</small> 
+                    </>
+                :
+                <Box spacing={1}>
+                    <Skeleton animation="wave" variant="text" width="50%" height={118} />
+                    <Skeleton animation="wave" variant="text"  width="40%" />
+                    <Skeleton animation="wave" variant="text"/>
+                    <Skeleton animation="wave" variant="text"  />
+                    <Skeleton animation="wave" variant="text"  width="30%" />
+                    <Skeleton animation="wave" variant="text"  width="30%" />
+                </Box>
+                }
             </Content>
-            
         </Container>
     )
 }

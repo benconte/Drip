@@ -33,7 +33,7 @@ function DisplayPlaylist(props){
                 <Header playlist={playlist} song_length={song_length} />   
             )}
 
-            { songs ? <Songs 
+            { songs && <Songs 
                 playlist={playlist}
                 songs={songs} 
                 song_length={song_length} 
@@ -45,13 +45,9 @@ function DisplayPlaylist(props){
                 playing_song={props.playing_song}
                 queu_playlist={props.queu_playlist}
                 setQueu_playlist={props.setQueu_playlist}
-            />: (
-                <Stack spacing={1}>
-                    <Skeleton variant="text" />
-                    <Skeleton variant="circular" width={40} height={40} />
-                    <Skeleton variant="rectangular" width={210} height={118} />
-                </Stack>
-            )}
+                isPlaying={props.isPlaying}
+                setIs_playing={props.setIs_playing}
+            />}
         </Container>
     )
 }

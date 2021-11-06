@@ -25,7 +25,7 @@ let song = '/static/song/Money Man - 24 (Official Video) (feat. Lil Baby).mp3';
 
 function Player(props){
     const [song_time, setSong_time] = useState(0);
-    const [isPlaying, setIs_playing] = useState(false);
+    // const [isPlaying, setIs_playing] = useState(false);
     const [volume, setVolume] = useState(50);
     const [isMuted, setIsMuted] = useState(false);
     const [ct_time, setCt_time] = useState("0:0");
@@ -66,27 +66,25 @@ function Player(props){
     // takes in an index for the song to play
     const handleMusic = async (i) => {
         if (currentSong === [] || props.store[i] != currentSong){
-            console.log(true)
-            // props.setPlaying_song(i);
+            props.setPlaying_song(i);
             setCurentSong(props.store[i])
-            console.log(props.store[i])
             player.src = "/media/"+props.store[i].song;
             await player.load();
             player.play();
-            setIs_playing(true);
+            props.setIs_playing(true);
         }
         else {
-            play();
+            play(); 
         }
     }
 
 
     const play = () => {
-        if(isPlaying == false){
-            // setIs_playing(!isPlaying);
+        if(props.isPlaying == false){
+            props.setIs_playing(!props.isPlaying);
             player.play();
         }else{
-            // setIs_playing(!isPlaying);
+            props.setIs_playing(!props.isPlaying);
             player.pause();
         }
         
@@ -176,7 +174,7 @@ function Player(props){
                     <LoopIcon onClick={() => repeat()} style={loop === true? {color: "var(--green)"} : {color: "#eee"}} />
                     <SkipPreviousIcon onClick={() => prevPlay()} />
                     
-                    { isPlaying? (
+                    { props.isPlaying? (
                         <PauseIcon className="play-icon" onClick={() => play()} />
                     ) : (
                         <PlayArrowIcon className="play-icon" onClick={() => play()} />
