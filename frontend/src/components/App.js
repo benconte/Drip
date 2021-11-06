@@ -72,13 +72,16 @@ export default function App(){
                 }
                 <Player 
                     store={data} 
+                    setStore={setData}
                     playing_song={playing_song} 
                     setPlaying_song={setPlaying_song} 
                     status={status} 
                     setStatus={setStatus}
                     isPlaying={isPlaying}
                     setIs_playing={setIs_playing}
-                />
+                    show_lyrics_queu={show_lyrics_queu}
+                    setShow_lyrics_queu={setShow_lyrics_queu}
+                    />
             </Router>
             
         </div>

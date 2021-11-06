@@ -19,9 +19,19 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import player from './PlayerConfig'
 import store from './store'
 
-let song = '/static/song/Money Man - 24 (Official Video) (feat. Lil Baby).mp3';
-
-// player.src = song;
+const shuffle = (array) => {
+    let currentIndex = array.length,  randomIndex;
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+    return array;
+}
 
 function Player(props){
     const [song_time, setSong_time] = useState(0);
@@ -66,7 +76,7 @@ function Player(props){
     // takes in an index for the song to play
     const handleMusic = async (i) => {
         if (currentSong === [] || props.store[i] != currentSong){
-            props.setPlaying_song(i);
+            // props.setPlaying_song(i);
             setCurentSong(props.store[i])
             player.src = "/media/"+props.store[i].song;
             await player.load();
@@ -129,6 +139,15 @@ function Player(props){
         nextPlay();
     })
 
+    const playShuffledPlaylist = () => {
+        props.setStore(shuffle(props.store));
+        props.setPlaying_song(0)
+        if(props.status === false){
+            props.setStatus(true)
+        }
+        console.log(shuffle(props.store))
+    }
+
     useEffect(() => {
         if (props.store !== undefined){
             if (props.status){
@@ -180,7 +199,7 @@ function Player(props){
                         <PlayArrowIcon className="play-icon" onClick={() => play()} />
                     )}
                     <SkipNextIcon onClick={() => nextPlay()} />
-                    <ShuffleIcon />
+                    { props.store && <ShuffleIcon onClick={() => playShuffledPlaylist()} /> }
                 </div>
                 <div className="slider">
                     <CtView>{ct_time}</CtView>
@@ -200,7 +219,11 @@ function Player(props){
                     
                 </div>
                 <FavoriteBorderIcon className="favorite" />
-                <MicIcon className="lyrics" />
+                { currentSong && currentSong.lyrics !== ''? 
+                    <MicExternalOnIcon className="lyrics" onClick={()=> props.setShow_lyrics_queu(!props.show_lyrics_queu)} />
+                : 
+                    <MicExternalOnIcon className="lyrics-disabled" />
+                }
                 <QueueMusicIcon className="queue" />
             </RightSection>
         </Nav>
@@ -373,14 +396,21 @@ const RightSection = styled.div`
         }
     }
 
+    // .lyrics-disabled {
+    //     margin: 0 10px;
+    //     font-size: 1.5rem;
+    //     cursor: pointer;
+    //     color: rgba(249,249,249,.3);
+    // }
+
     .lyrics-disabled {
-        color: rgba(249,249,259,.2);
+        color: rgba(249,249,249,.2);
         margin: 0 10px;
         font-size: 1.5rem;
         cursor: pointer;
 
         &:hover {
-            color: #999797;
+            color: rgba(249,249,249,.4);
         }
     }
 
