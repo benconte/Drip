@@ -5,6 +5,9 @@ import HomeIcon from '@material-ui/icons/Home';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import QueueMusicIcon from '@material-ui/icons/QueueMusic';
 import RadioIcon from '@material-ui/icons/Radio';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faColumns } from '@fortawesome/free-solid-svg-icons'
+import { faBroadcastTower } from '@fortawesome/free-solid-svg-icons'
 
 function Leftnav(){
     return (
@@ -16,19 +19,21 @@ function Leftnav(){
                 <ul>
                     <Link to={`/`} >
                         <li>
-                            <HomeIcon />
+                            <HomeIcon style={{marginRight: "4px"}} />
                             <span>home</span>
                         </li>
                     </Link>
                     <Link to={`/`} >
                         <li>
                             {/* <HomeMaxIcon /> */}
+                            <FontAwesomeIcon icon={faColumns} style={{marginRight: "7px"}} />
                             <span>Discover</span>
                         </li>
                     </Link>
                     <Link to={`/`} >
                         <li>
-                            <RadioIcon />
+                            {/* <RadioIcon style={{marginRight: "4px"}} /> */}
+                            <FontAwesomeIcon icon={faBroadcastTower} style={{marginRight: "7px"}} />
                             <span>radio</span>
                         </li>
                     </Link>
@@ -86,10 +91,6 @@ const Nav = styled.div`
         align-items: center;
         justify-content: center;
         border-bottom: 1px solid #444;
-
-        svg {
-            margin-right: 7px;
-        }
 
         span {
             font-weight: bold;
