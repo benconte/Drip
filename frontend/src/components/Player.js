@@ -166,7 +166,7 @@ function Player(props){
                         <img src={"/media/"+currentSong.img} alt={currentSong.name} />
                         <div className="song-info">
                             <span>{currentSong.name}</span>
-                            {currentSong.album !== '-'? <small><AlbumIcon /> {currentSong.album}</small>:<></>}
+                            {/* {currentSong.album !== '-'? <small><AlbumIcon /> {currentSong.album}</small>:<></>} */}
                             <p>{currentSong.authers.map((art, index) => {
                                 return (
                                     <>
