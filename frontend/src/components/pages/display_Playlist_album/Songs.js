@@ -51,7 +51,6 @@ const shuffle = (array) => {
 }
 
 function Songs(props){
-    console.log(props.store)
     const playShuffledPlaylist = () => {
         props.setStore(shuffle(props.songs))
         props.setPlaying_song(0)
@@ -65,6 +64,7 @@ function Songs(props){
     }
 
     const playSong = (i) => {
+        props.setQueu_playlist(props.playlist);
         props.setStore(props.songs)
         props.setPlaying_song(i)
         props.setStatus(true)

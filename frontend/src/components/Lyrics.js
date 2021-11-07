@@ -47,7 +47,7 @@ const Container = styled.div`
     z-index: 18;
     overflow-x: hidden;
     overflow-y: auto;
-    margin-bottom: 50px;
+    padding-bottom: 100px;
 
     &::-webkit-scrollbar {
         z-index: 25;

@@ -73,6 +73,7 @@ export default function App(){
                 <Player 
                     store={data} 
                     setStore={setData}
+                    queu_playlist={queu_playlist}
                     playing_song={playing_song} 
                     setPlaying_song={setPlaying_song} 
                     status={status} 

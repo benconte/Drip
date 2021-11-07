@@ -75,7 +75,7 @@ def getPlaylist_data(request, id):
                 "img": img,
                 "song": song,
                 "name": dat.song_model.song_name,
-                "lyrics": dat.song_model.lyrics,
+                "lyrics": str(dat.song_model.lyrics),
                 "is_liked": is_liked,
                 "is_favorite": is_favorite,
                 "total_likes": dat.song_model.likes.count(),

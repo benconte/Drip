@@ -17,7 +17,7 @@ import VolumeMuteIcon from '@material-ui/icons/VolumeMute';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import player from './PlayerConfig'
-import store from './store'
+import Queue from './Queue'
 
 const shuffle = (array) => {
     let currentIndex = array.length,  randomIndex;
@@ -42,7 +42,7 @@ function Player(props){
     const [Tt_time, setTT_time] = useState("00:00");
     const [total_progress_value, set_progressValue] = useState(0);
     const [loop, setLoop] = useState(false);
-
+    const [showQueue, setShowQueue] = useState(false);
     const [currentSong, setCurentSong] = useState();
 
 
@@ -224,7 +224,31 @@ function Player(props){
                 : 
                     <MicExternalOnIcon className="lyrics-disabled" />
                 }
-                <QueueMusicIcon className="queue" />
+                { props.store? 
+                    <QueueMusicIcon 
+                        className="queue" 
+                        style={{color: showQueue && "var(--green)" }} 
+                        onClick={() => setShowQueue(true)} 
+                    />
+                : 
+                    <QueueMusicIcon 
+                        className="no-queue" 
+                    />
+                }
+                
+                { showQueue && 
+                    <Queue 
+                        setShowQueue={setShowQueue} 
+                        store={props.store} 
+                        queu_playlist={props.queu_playlist}
+                        playing_song={props.playing_song} 
+                        setPlaying_song={props.setPlaying_song} 
+                        status={props.status} 
+                        setStatus={props.setStatus}
+                        isPlaying={props.isPlaying}
+                        setIs_playing={props.setIs_playing}
+                    /> 
+                }
             </RightSection>
         </Nav>
     )
@@ -385,6 +409,7 @@ const RightSection = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    position: realative;
 
     .lyrics {
         margin: 0 10px;
@@ -431,6 +456,17 @@ const RightSection = styled.div`
 
         &:hover {
             color: var(--green);
+        }
+    }
+
+    .no-queue {
+        color: rgba(249,249,249,.2);
+        margin: 0 10px;
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        &:hover {
+            color: rgba(249,249,249,.4);
         }
     }
 
