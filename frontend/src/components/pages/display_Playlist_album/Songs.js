@@ -553,4 +553,10 @@ const Dropdown = styled.div`
             text-decoration: none;
         }
     }
+
+    hr {
+        margin: 0;
+        border: 0;
+        border-top: 1px solid rgb(204 202 202 / 10%);
+    }
 `
