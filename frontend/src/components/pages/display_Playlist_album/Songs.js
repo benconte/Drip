@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
 import Table from '@mui/material/Table';
@@ -51,6 +51,9 @@ const shuffle = (array) => {
 }
 
 function Songs(props){
+    const [dropdown, setDropdown] = useState(false);
+    const [dropdownId, setDropdownId] = useState(false);
+
     const playShuffledPlaylist = () => {
         props.setStore(shuffle(props.songs))
         props.setPlaying_song(0)
@@ -308,8 +311,21 @@ function Songs(props){
                                     <TableCell align="left">
                                         <Cell>
                                             <Wrap>
-                                                <MoreVertIcon />
+                                                <MoreVertIcon onClick={() => {
+                                                    setDropdown(!dropdown)
+                                                    setDropdownId(row.song_id)
+                                                }} />
                                             </Wrap>
+                                            {dropdownId === row.song_id && dropdown && 
+                                                <Dropdown dropdown={dropdown}>
+                                                    <Link to={`/`}>Play next</Link>
+                                                    <Link to={`/`}>add to favorites</Link>
+                                                    <Link to={`/`}>add to playlist</Link>
+                                                    <hr />
+                                                    <Link to={`/`}>share</Link>
+                                                </Dropdown>
+                                            }
+                                            
                                         </Cell>
                                     </TableCell>
                                 </TableRow>
@@ -475,6 +491,7 @@ const Cell = styled.div`
     flex-direction: column;
     justify-content: center;
     flex-wrap: wrap;
+    position: relative;
  
     small {
         a {
@@ -489,6 +506,8 @@ const Cell = styled.div`
 `
 
 const Wrap = styled.div`
+    width: 100%;
+    height: 100%;
     cursor: pointer;
     color: #eee;
     font-size: 1rem;   
@@ -500,6 +519,38 @@ const Wrap = styled.div`
         color: var(--green);
         a {
             color: var(--green);
+        }
+    }
+`
+
+const Dropdown = styled.div`
+    position: absolute;
+    top: 2rem;
+    right: 1rem;
+    width: 150px;
+    height: auto;
+    padding: 5px;
+    background: rgb(51, 51, 51);
+    display: ${dropdown => dropdown? 'flex': 'none'};
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+
+    a {
+        color: #bbb;
+        font-weight: 700;
+        height: 30px;
+        font-size: 1rem;
+        margin: 3px 0;
+        display: flex;
+        padding: 0 5px;
+        align-items: center;
+
+        &:hover {
+            color: #eee;
+            background: rgb(45,45,45);
+            cursor: pointer;
+            text-decoration: none;
         }
     }
 `
