@@ -538,7 +538,7 @@ const Dropdown = styled.div`
 
     a {
         color: #bbb;
-        font-weight: 700;
+        font-weight: 500;
         height: 30px;
         font-size: 1rem;
         margin: 3px 0;
