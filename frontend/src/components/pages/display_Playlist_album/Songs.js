@@ -50,6 +50,11 @@ const shuffle = (array) => {
     return array;
 }
 
+const playNext = (arr, pos, index) => {
+    arr.splice(pos, 0, arr[index])
+    return arr
+}
+
 function Songs(props){
     const [dropdown, setDropdown] = useState(false);
     const [dropdownId, setDropdownId] = useState(false);
@@ -59,6 +64,13 @@ function Songs(props){
         props.setPlaying_song(0)
         props.setStatus(true)
     }
+
+    const handle_PlayNext = (pos, index) => {
+        playNext(props.songs, pos + 1, index)
+        props.songs.splice(index + 1, 1);
+        setDropdown(false);
+        // props.setStore(shuffle(props.songs))
+    }   
 
     const handlePlaying = e => {
         if(e.target.value === "shuffle"){
@@ -143,7 +155,7 @@ function Songs(props){
                         return(
                             <React.Fragment key={index}>
                                 { 
-                                props.data && row.song_id === props.data[props.playing_song].song_id ? 
+                                props.data && props.queu_playlist === props.playlist && row.song_id === props.data[props.playing_song].song_id ? 
                                 <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} className="playing">
                                     <TableCell component="th" scope="row">
                                         <Cell>
@@ -227,8 +239,20 @@ function Songs(props){
                                     <TableCell align="left">
                                         <Cell>
                                             <Wrap>
-                                                <MoreVertIcon style={{color: 'var(--green)'}} />
-                                            </Wrap>
+                                                <MoreVertIcon onClick={() => {
+                                                    setDropdown(!dropdown)
+                                                    setDropdownId(row.song_id)
+                                                }} />
+                                            </Wrap> 
+                                            {dropdownId === row.song_id && dropdown && 
+                                                <Dropdown dropdown={dropdown}>
+                                                    <Link to={`/`}>Play next</Link>
+                                                    <Link to={`/`}>add to favorites</Link>
+                                                    <Link to={`/`}>add to playlist</Link>
+                                                    <hr />
+                                                    <Link to={`/`}>share</Link>
+                                                </Dropdown>
+                                            }
                                         </Cell>
                                     </TableCell>
                                 </TableRow>
@@ -315,10 +339,10 @@ function Songs(props){
                                                     setDropdown(!dropdown)
                                                     setDropdownId(row.song_id)
                                                 }} />
-                                            </Wrap>
+                                            </Wrap> 
                                             {dropdownId === row.song_id && dropdown && 
                                                 <Dropdown dropdown={dropdown}>
-                                                    <Link to={`/`}>Play next</Link>
+                                                    <span onClick={() => handle_PlayNext(props.playing_song, index)}>Play next</span>
                                                     <Link to={`/`}>add to favorites</Link>
                                                     <Link to={`/`}>add to playlist</Link>
                                                     <hr />
@@ -429,6 +453,11 @@ const Container = styled.div`
         }
     }
 
+    table {
+        height: 100%;
+        width: 100%;
+    }
+
     th {
         border-color: #56565670;
     }
@@ -535,6 +564,23 @@ const Dropdown = styled.div`
     flex-direction: column;
     justify-content: center;
     z-index: 1;
+
+    span {
+        color: #bbb;
+        font-weight: 500;
+        height: 30px;
+        font-size: 1rem;
+        margin: 3px 0;
+        display: flex;
+        padding: 0 5px;
+        align-items: center;
+
+        &:hover {
+            color: #eee;
+            background: rgb(45,45,45);
+            cursor: pointer;
+        }
+    }
 
     a {
         color: #bbb;
