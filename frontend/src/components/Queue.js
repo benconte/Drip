@@ -5,6 +5,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { Link } from "react-router-dom"
 
 function Queue(props){
     const playSong = (i) => {
@@ -20,10 +21,21 @@ function Queue(props){
     return (
         <Container>
             <header>
-                <img src="/static/images/Money_Man_-_24.png" alt="playlist-name" />
+                <img src={`/media/${props.queu_playlist.img}`} alt="playlist-name" />
                 <Wrap>
-                    <span>Rolling</span>
-                    <small><a href="/">lil baby</a> and <a href="/">j.cole</a></small>
+                    <span>{props.queu_playlist.name}</span>
+                    <small>
+                        { props.queu_playlist.authers.map((art, index) => {
+                            return (
+                                <label key={index}>
+                                    <Link to={`/`}>
+                                        {art}
+                                    </Link>
+                                    . 
+                                </label>
+                            )
+                        })}
+                    </small>
                 </Wrap>
                 <Icons>
                     {/* <MoreVertIcon /> */}
@@ -128,15 +140,29 @@ const Wrap = styled.div`
     small {
         font-weight: 500;
         color: rgba(249,249,249,.6);
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
 
-        a {
-            color: #555;
+        label {
             font-size: 1.1em;
-
-            &:hover {
-                color: var(--green);
+            margin: 0;
+            padding: 0;
+            line-height: 1rem;
+            
+            a {
+                color: #555;
+                font-size: 1.1em;
+    
+                &:hover {
+                    color: var(--green);
+                }
             }
+            // small {
+            //     font-size
+            // }
         }
+        
     }
 `
 

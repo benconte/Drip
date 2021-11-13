@@ -246,7 +246,6 @@ function Songs(props){
                                             </Wrap> 
                                             {dropdownId === row.song_id && dropdown && 
                                                 <Dropdown dropdown={dropdown}>
-                                                    <Link to={`/`}>Play next</Link>
                                                     <Link to={`/`}>add to favorites</Link>
                                                     <Link to={`/`}>add to playlist</Link>
                                                     <hr />
