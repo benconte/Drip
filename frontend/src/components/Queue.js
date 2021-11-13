@@ -51,13 +51,13 @@ function Queue(props){
                                     <img src={`/media/${song.img}`} alt={song.name} />
                                     <Content>
                                         <b>{song.name}</b>
-                                        <small>
+                                        <small style={{lineHeight: song.authers.length > 3? '1rem': '1.2rem'}}>
                                             {
                                             song.authers !== []? 
                                                 song.authers.length > 3? 
                                                     (song.authers.slice(0, 2).map((art, indx) => {
                                                         return (
-                                                            <span key={indx}>
+                                                            <legend key={indx}>
                                                                 { indx === 1? (
                                                                     <span key={indx}>
                                                                         <Link to={`/`}>{art}</Link>
@@ -71,7 +71,7 @@ function Queue(props){
                                                                     </span>
                                                                 ) }
                                                                 
-                                                            </span>
+                                                            </legend>
                                                             )
                                                         }))
                                                 : song.authers.map((art, indx) => {
@@ -100,7 +100,7 @@ function Queue(props){
                                     <img src={`/media/${song.img}`} alt={song.name} />
                                     <Content>
                                         <b>{song.name}</b>
-                                        <small>
+                                        <small style={{lineHeight: song.authers.length > 3? '1rem': '1.2rem'}}>
                                             {
                                             song.authers !== []? 
                                                 song.authers.length > 3? 
@@ -281,16 +281,6 @@ const Content = styled.div`
         font-size: 0.99rem;
         letter-spacing: 0.15rem;
     }
-
-    // small {
-    //     letter-spacing: 0.1rem;
-    //     color: #707072;
-    //     font-weight: 500;
-
-    //     svg {
-    //         font-size: 1rem;
-    //     }
-    // }
 
     small {
         font-size: 0.9rem;
