@@ -22,6 +22,7 @@ import PauseIcon from '@material-ui/icons/Pause';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const styles = {
     table: {
@@ -58,6 +59,8 @@ const playNext = (arr, pos, index) => {
 function Songs(props){
     const [dropdown, setDropdown] = useState(false);
     const [dropdownId, setDropdownId] = useState(false);
+    const [playingMode, setPlayingMode] = useState('listen');
+    const [playingMode_dropdown, setPlayingMode_dropdown] = useState(false);
 
     const playShuffledPlaylist = () => {
         props.setStore(shuffle(props.songs))
@@ -72,8 +75,9 @@ function Songs(props){
         // props.setStore(shuffle(props.songs))
     }   
 
-    const handlePlaying = e => {
-        if(e.target.value === "shuffle"){
+    const handlePlaying = mode => {
+        if(mode === "shuffle"){
+            setPlayingMode(mode);
             playShuffledPlaylist();
         }
     }
@@ -113,10 +117,18 @@ function Songs(props){
     return (
         <Container>
             <header>
-                <select onChange={handlePlaying}>
-                    <option value="listen">Listen</option>
-                    <option value="shuffle">shuffle</option>
-                </select>
+                {/* this is the playing mode */}
+                <div>
+                    <span>{playingMode}</span>
+                    <button style={{background: playingMode_dropdown&&'rgba(14, 64, 32, 0.82)'}}><KeyboardArrowDownIcon onClick={() => setPlayingMode_dropdown(!playingMode_dropdown)} /></button>
+                    {playingMode_dropdown&& 
+                        <ul>
+                            <li>Listen</li>
+                            <li onClick={() => handlePlaying('shuffle')}>shuffle</li>
+                            <li>pause</li>
+                        </ul>
+                    }
+                </div> 
                 {/* <FontAwesomeIcon icon={faRandom} className="shuffle" onClick={() => playShuffledPlaylist()} /> */}
                 <MoreHorizIcon className="more" />
             </header>
@@ -380,32 +392,74 @@ const Container = styled.div`
         display: flex;
         align-items: center;
         margin-bottom: 10px;
+        position: relative;
 
-        select {
-            padding: 6px 30px;
+        div {
+            width: 9rem;
+            height: 2.5rem;
+            padding: 6px 5px 6px 5px;
             border: none;
-            outline: none;
             background: var(--green);
-            color: #fff;
             border-radius: 3px;
             cursor: pointer;
-            font-weight: 600;
-            letter-spacing: .2rem;
             margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-            option {
-                background: #222;
-                margin: 5px 0;
+            span {
+                color: #fff;
+                font-weight: 600;
+                letter-spacing: .2rem;
+                flex-grow: 1;
+            }
+
+            button {
+                background: transparent;
+                border: none;
                 color: #eee;
+                margin-left: 15px;
+                outline: none;
 
-                &:hover {
-                    background: #333;
-                    cursor: pointer;
+                svg {
+                    font-size: 2rem;
                 }
+            }
+            ul {
+                position: absolute;
+                top: 2.6rem;
+                left: 0;
+                background: #222;
+                width: 10rem;
+                height: auto;
+                margin: 0;
+                list-style: none;
+                z-index: 5;
+
+                li {
+                    height: 2rem;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    padding: 0 10px;
+                    color: #eee;
+                    border-bottom: 1px solid #444;
+                    font-weight: 700;
+
+                    &:hover {
+                        background: #333;
+                        cursor: pointer;
+                    }
+                }
+                
             }
 
             &:hover {
                 background: #3aa861;
+
+                button {
+                    background: rgba(14, 64, 32, 0.82);
+                }
             }
         }
 
