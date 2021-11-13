@@ -51,7 +51,40 @@ function Queue(props){
                                     <img src={`/media/${song.img}`} alt={song.name} />
                                     <Content>
                                         <b>{song.name}</b>
-                                        <span><a href="/">lil baby</a> and <a href="/">j.cole</a></span>
+                                        <small>
+                                            {
+                                            song.authers !== []? 
+                                                song.authers.length > 3? 
+                                                    (song.authers.slice(0, 2).map((art, indx) => {
+                                                        return (
+                                                            <span key={indx}>
+                                                                { indx === 1? (
+                                                                    <span key={indx}>
+                                                                        <Link to={`/`}>{art}</Link>
+                                                                        {/* adding ... to the second artist */}
+                                                                        ...
+                                                                    </span>
+                                                                ) : (
+                                                                    <span key={indx}>
+                                                                        <Link to={`/`}>{art} </Link> 
+                                                                        .
+                                                                    </span>
+                                                                ) }
+                                                                
+                                                            </span>
+                                                            )
+                                                        }))
+                                                : song.authers.map((art, indx) => {
+                                                    return (
+                                                        <span key={indx}>
+                                                            <Link to={`/`}>{art}</Link> 
+                                                            <b>. </b> 
+                                                        </span>
+                                                        )
+                                                    }
+                                                ) 
+                                            : <span>{song.song_auther_written}</span> }
+                                        </small>
                                         {/* <small><AlbumIcon /> The GOAT</small> */}
                                     </Content>
                                     <Icons>
@@ -67,7 +100,40 @@ function Queue(props){
                                     <img src={`/media/${song.img}`} alt={song.name} />
                                     <Content>
                                         <b>{song.name}</b>
-                                        <span><a href="/">lil baby</a> and <a href="/">j.cole</a></span>
+                                        <small>
+                                            {
+                                            song.authers !== []? 
+                                                song.authers.length > 3? 
+                                                    (song.authers.slice(0, 2).map((art, indx) => {
+                                                        return (
+                                                            <span key={indx}>
+                                                                { indx === 1? (
+                                                                    <span key={indx}>
+                                                                        <Link to={`/`}>{art}</Link>
+                                                                        {/* adding ... to the second artist */}
+                                                                        ...
+                                                                    </span>
+                                                                ) : (
+                                                                    <span key={indx}>
+                                                                        <Link to={`/`}>{art} </Link> 
+                                                                        .
+                                                                    </span>
+                                                                ) }
+                                                                
+                                                            </span>
+                                                            )
+                                                        }))
+                                                : song.authers.map((art, indx) => {
+                                                    return (
+                                                        <span key={indx}>
+                                                            <Link to={`/`}>{art}</Link> 
+                                                            <b>. </b> 
+                                                        </span>
+                                                        )
+                                                    }
+                                                ) 
+                                            : <span>{song.song_auther_written}</span> }
+                                        </small>
                                         {/* <small><AlbumIcon /> The GOAT</small> */}
                                     </Content>
                                     <Icons>
@@ -149,7 +215,8 @@ const Wrap = styled.div`
             margin: 0;
             padding: 0;
             line-height: 1rem;
-            
+            margin-right: 10px;
+
             a {
                 color: #555;
                 font-size: 1.1em;
@@ -215,24 +282,24 @@ const Content = styled.div`
         letter-spacing: 0.15rem;
     }
 
+    // small {
+    //     letter-spacing: 0.1rem;
+    //     color: #707072;
+    //     font-weight: 500;
+
+    //     svg {
+    //         font-size: 1rem;
+    //     }
+    // }
+
     small {
-        letter-spacing: 0.1rem;
-        color: #707072;
-        font-weight: 500;
-
-        svg {
-            font-size: 1rem;
-        }
-    }
-
-    span {
         font-size: 0.9rem;
         font-weight: 500;
         color: rgba(249,249,249,.6);
 
         a {
             color: #555;
-            font-size: 1em;
+            font-size: .9em;
 
             &:hover {
                 color: var(--green);

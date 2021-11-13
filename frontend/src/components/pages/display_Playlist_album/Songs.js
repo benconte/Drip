@@ -181,6 +181,7 @@ function Songs(props){
                                                                     { indx === 1? (
                                                                         <span key={indx}>
                                                                             <Link to={`/`}>{art}</Link>
+                                                                            {/* adding ... to the second artist */}
                                                                             ...
                                                                         </span>
                                                                     ) : (
