@@ -78,6 +78,7 @@ const Container = styled.div`
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            line-height: 1.8rem;
 
             b {
                 font-size: 1.8rem;
@@ -123,7 +124,7 @@ const Content = styled.div`
     width: 100%;
     height: 100%;
     margin-top: 80px;
-
+a
     div {
         max-width: 45rem;
         margin: 0 auto;
@@ -132,5 +133,7 @@ const Content = styled.div`
         font-weight: 500;
         font-size: 1.5rem;
         letter-spacing: 0.2rem;
+        padding-bottom: 100px;
+
     }
 `
