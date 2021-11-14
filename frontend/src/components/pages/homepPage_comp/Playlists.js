@@ -100,12 +100,12 @@ const Main = styled.div`
     header {
         width: 100%;
         height: 40px;
-        border-bottom: 1px solid #333;
+        // border-bottom: 1px solid #333;
         margin-bottom: 5px;
         padding: 0px 5px;
         color: #eee;
-        font-size: 1.5rem;
-        font-weight: 500;
+        font-size: 22px;
+        font-weight: 600;
     }
 `
 
@@ -227,9 +227,9 @@ const Wrap = styled.div`
 
 const Equalizer = styled.div`
     display: flex;
-    width: 3rem;
-    height: 3rem;
-    background: #eee;
+    width: 52px;
+    height: 52px;
+    background: #fff;
     border-radius: 50%;
     position: absolute;
     top: 30%;
@@ -254,6 +254,10 @@ const Equalizer = styled.div`
     span:nth-child(3){
         animation-delay: .6s;
     }
+
+    // &:hover {
+    //     transform: scale3d(1.2,1.2,1.2);
+    // }
 `
 
 const Content = styled.div`
