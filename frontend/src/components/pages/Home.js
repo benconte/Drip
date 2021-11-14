@@ -25,7 +25,11 @@ function Home(props){
 
     return (
         <Container>
-            <Playlists data={row1_data} type="playlist" />
+            <Playlists 
+                data={row1_data} 
+                type="playlist" 
+                queu_playlist={props.queu_playlist} 
+            />
             <Playlists data={row1_data} type="playlist" />
             <Playlists />
             <Playlists />
@@ -43,7 +47,8 @@ const Container = styled.div`
     margin-bottom: 100px;
     z-index: -1;
     display: block;
-    
+    padding-left: 10px;
+    padding-right: 10px;
     p {
         color: #717171;
     }

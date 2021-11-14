@@ -38,8 +38,12 @@ export default function App(){
                         <Home 
                             store={data} 
                             updateStore={setData} 
-                            playing_song={setPlaying_song} 
+                            playing_song={playing_song} 
+                            setPlaying_song={setPlaying_song} 
+                            status={status} 
                             setStatus={setStatus} 
+                            queu_playlist={queu_playlist}
+                            setQueu_playlist={setQueu_playlist}
                             isPlaying={isPlaying}
                             setIs_playing={setIs_playing}
                         />

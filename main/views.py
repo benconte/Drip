@@ -34,6 +34,26 @@ class Playlists_Serializers(generics.ListAPIView):
     queryset = Playlists.objects.all()
     serializer_class = PlaylistsSerializers
 
+def home_playlists(request):
+    plt = Playlists.objects.all()
+    playlists = []
+    for plts in plt:
+        playlist_img = json.dumps(str(plts.playlist_img))
+        plt_img = playlist_img.replace('"', "")
+
+        playlist_artists = []
+        for artists in plts.playlist_author.all():
+            playlist_artists.append(artists.name)
+
+        playlists.append({
+            'playlist_id': plts.id,
+            'name': plts.name,
+            'playlist_img': plt_img,
+            'inspired': plts.inspired,
+            'authers': playlist_artists
+        })
+    return JsonResponse(playlists, status=status.HTTP_200_OK, safe=False)
+
 
 def getPlaylist_data(request, id):
     playlist = Playlists.objects.get(id=id);

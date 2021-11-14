@@ -13,7 +13,7 @@ function Leftnav(){
     return (
         <Nav>
             <header>
-                <span>Drip</span>
+                <span>Dripy</span>
             </header>
             <NavItems>
                 <ul>

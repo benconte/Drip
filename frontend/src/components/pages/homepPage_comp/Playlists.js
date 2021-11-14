@@ -15,6 +15,8 @@ function Playlists(props) {
         autoplay: false,
         swipeToSlide: false,
         initialSlide: 0,
+        // swipe: true, 
+        draggable: false,
         responsive: [
             {
                 breakpoint: 1024,
@@ -38,6 +40,7 @@ function Playlists(props) {
             }
         ]
     };
+    console.log(props.queu_playlist)
     return (
         <Container>
             <Main>
@@ -46,10 +49,20 @@ function Playlists(props) {
                     { props.data && props.data.map((data, index) => {
                         return (
                             <Wrap key={index} >
-                                <PlayArrowIcon className="play-icon" />
-                                <Link to={`/playlist/${data.id}`}>
+                                { props.queu_playlist && props.queu_playlist.id === data.playlist_id? 
+                                    <Equalizer className='equalizer'>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </Equalizer>
+                                :
+                                    <PlayArrowIcon className="play-icon" />
+                                }
+                                    
+                                <Link to={`/playlist/${data.playlist_id}`}>
                                     <div className="playlist-data">
-                                        <img src={data.playlist_img} alt="playlist" />
+                                        <img src={'/media/'+data.playlist_img} alt="playlist" />
                                         <Content>
                                             <span>{data.name}</span>
                                             <small>{
@@ -73,12 +86,16 @@ export default Playlists;
 
 const Container = styled.div`
     width: calc(100% - 10px);
+    height: auto;
     margin-bottom: 15px;
+    ::-webkit-scrollbar {
+        display: none;
+      }
 `
 
 const Main = styled.div`
     margin-bottom: 15px;
-    height: 100%;
+    // height: 100%;
 
     header {
         width: 100%;
@@ -93,6 +110,8 @@ const Main = styled.div`
 `
 
 const Carousel = styled(Slider)`
+    // height: 100%;
+
     .slick-slide {
         width: 10rem;
         // margin: 0 5px;
@@ -145,7 +164,7 @@ const Wrap = styled.div`
     justify-content: center;
     padding: 7px;
     margin-right: 10px;
-    height: 15rem;
+    height: 20rem;
     position: relative;
 
     .play-icon {
@@ -172,13 +191,17 @@ const Wrap = styled.div`
             z-index: -1;
     
             img {
-                width: 100%;
-                height: calc(100% - 56px);
+                width: 234px;
+                height: 234px;
+                border-radius: 7px;
             }
     
             &:hover {
                 cursor: pointer;
-                border-color: var(--green);
+
+                img {
+                    opacity: .8;
+                }
             }
         }
     }
@@ -191,11 +214,46 @@ const Wrap = styled.div`
             z-index: 1;
         }
 
-        .playlist-data {
-            opacity: .7;
+        .equalizer {
+            display: none;
         }
+
+        // .playlist-data {
+        //     opacity: .7;
+        // }
     }
     
+`
+
+const Equalizer = styled.div`
+    display: flex;
+    width: 3rem;
+    height: 3rem;
+    background: #eee;
+    border-radius: 50%;
+    position: absolute;
+    top: 30%;
+    left: 38%;
+    align-items: center;
+    justify-content: center;
+
+    span {
+        display: inline-block;
+        height: 2rem;
+        width: 0.2rem;
+        margin: 1.2px;
+        background: var(--green);
+        animation: equalizer 1s linear infinite;
+        transform-origin: bottom;
+    }
+
+    span:nth-child(2){
+        animation-delay: .3s;
+    }
+
+    span:nth-child(3){
+        animation-delay: .6s;
+    }
 `
 
 const Content = styled.div`
@@ -217,3 +275,4 @@ const Content = styled.div`
         font-weight: 500;
     }
 `
+
