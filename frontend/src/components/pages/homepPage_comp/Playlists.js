@@ -40,6 +40,27 @@ function Playlists(props) {
             }
         ]
     };
+    
+    const play_playlist = (id) => {
+        fetch('api/getPlaylist_data/'+id)
+        .then(res => res.json())
+        .then(data => {
+            props.updateStore(data.songs);
+            props.setQueu_playlist({
+                id: data.playlist_id,
+                name: data.playlist_name,
+                img: data.playlist_img,
+                authers: data.playlist_authers,
+                playlist_likes: data.playlist_likes,
+            });
+            props.setPlaying_song(0);
+            props.setStatus(true);
+            if(!props.isPlaying){
+                props.setIs_playing(true);
+            }
+        })
+    }
+
     console.log(props.queu_playlist)
     return (
         <Container>
@@ -57,7 +78,7 @@ function Playlists(props) {
                                         <span></span>
                                     </Equalizer>
                                 :
-                                    <PlayArrowIcon className="play-icon" />
+                                    <PlayArrowIcon className="play-icon" onClick={() => play_playlist(data.playlist_id)} />
                                 }
                                     
                                 <Link to={`/playlist/${data.playlist_id}`}>

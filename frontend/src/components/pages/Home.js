@@ -28,7 +28,13 @@ function Home(props){
             <Playlists 
                 data={row1_data} 
                 type="playlist" 
+                updateStore={props.updateStore}
                 queu_playlist={props.queu_playlist} 
+                setPlaying_song={props.setPlaying_song}
+                setQueu_playlist={props.setQueu_playlist}
+                isPlaying={props.isPlaying}
+                setIs_playing={props.setIs_playing}
+                setStatus={props.setStatus} 
             />
             <Playlists data={row1_data} type="playlist" />
             <Playlists />
