@@ -71,12 +71,31 @@ function Playlists(props) {
                         return (
                             <Wrap key={index} >
                                 { props.queu_playlist && props.queu_playlist.id === data.playlist_id? 
-                                    <Equalizer className='equalizer'>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                    </Equalizer>
+                                    <>
+                                    {props.isPlaying? 
+                                        <>
+                                        <Equalizer className='equalizer'>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </Equalizer>
+                                        <PausePlaylist className="pause-icon" >
+                                            <PauseIcon onClick={() => {
+                                                props.setStatus(false)
+                                                props.setIs_playing(false)
+                                            }} />
+                                        </PausePlaylist>
+                                        </>
+                                    :
+                                        <PlayArrowIcon className="play-icon" onClick={() => {
+                                            props.setStatus(true)
+                                            props.setIs_playing(true)
+                                        }} /> 
+                                    }
+                                        
+                                        
+                                    </>
                                 :
                                     <PlayArrowIcon className="play-icon" onClick={() => play_playlist(data.playlist_id)} />
                                 }
@@ -226,7 +245,6 @@ const Wrap = styled.div`
             }
         }
     }
-    
 
     &:hover {
         .play-icon {
@@ -237,6 +255,12 @@ const Wrap = styled.div`
 
         .equalizer {
             display: none;
+        }
+
+        .pause-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         // .playlist-data {
@@ -279,6 +303,25 @@ const Equalizer = styled.div`
     // &:hover {
     //     transform: scale3d(1.2,1.2,1.2);
     // }
+`
+
+const PausePlaylist = styled.div`
+    width: 52px;
+    height: 52px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 30%;
+    left: 38%;
+    display: none;
+    z-index: 1;
+    cursor: pointer;
+
+    svg {
+        font-size: 2.8rem;
+        color: var(--green);
+    }
+
 `
 
 const Content = styled.div`

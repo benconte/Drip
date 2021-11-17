@@ -124,7 +124,7 @@ const Content = styled.div`
     width: 100%;
     height: 100%;
     margin-top: 80px;
-a
+
     div {
         max-width: 45rem;
         margin: 0 auto;
