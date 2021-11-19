@@ -61,7 +61,19 @@ function Playlists(props) {
         })
     }
 
-    console.log(props.queu_playlist)
+    const pauseSong = () => {
+        props.setStatus(false);
+        // if(props.isPlaying){
+        //     props.setIs_playing(false);
+        // }
+    }
+
+    const playSong = () => {
+        props.setStatus(true);
+        // if(!props.isPlaying){
+        //     props.setIs_playing(true);
+        // }
+    }
     return (
         <Container>
             <Main>
@@ -80,21 +92,13 @@ function Playlists(props) {
                                             <span></span>
                                             <span></span>
                                         </Equalizer>
-                                        <PausePlaylist className="pause-icon" >
-                                            <PauseIcon onClick={() => {
-                                                props.setStatus(false)
-                                                props.setIs_playing(false)
-                                            }} />
+                                        <PausePlaylist className="pause-icon" onClick={() => pauseSong()} >
+                                            <PauseIcon />
                                         </PausePlaylist>
                                         </>
                                     :
-                                        <PlayArrowIcon className="play-icon" onClick={() => {
-                                            props.setStatus(true)
-                                            props.setIs_playing(true)
-                                        }} /> 
-                                    }
-                                        
-                                        
+                                        <PlayArrowIcon className="play-icon" onClick={() => playSong()} /> 
+                                    }   
                                     </>
                                 :
                                     <PlayArrowIcon className="play-icon" onClick={() => play_playlist(data.playlist_id)} />
