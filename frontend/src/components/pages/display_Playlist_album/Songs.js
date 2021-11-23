@@ -430,7 +430,7 @@ const Container = styled.div`
                 top: 2.6rem;
                 left: 0;
                 background: #222;
-                width: 10rem;
+                width: 9rem;
                 height: auto;
                 margin: 0;
                 list-style: none;
