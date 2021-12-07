@@ -113,3 +113,25 @@ def getPlaylist_data(request, id):
         }, status=status.HTTP_200_OK, safe=False)
     return JsonResponse({"msg": "error getting playlist songs"}, status=status.HTTP_401_UNAUTHORIZED, safe=False)
     
+
+
+def addFavorite(request, id):
+    song = Song_model.objects.get(id=id)
+    if song.favorite.filter(id=request.user.id).exists():
+        song.favorite.remove(request.user)
+        return JsonResponse({"msg": "Song removed from favorites", "type":"error"}, status=status.HTTP_200_OK, safe=False)
+    else:
+        song.favorite.add(request.user)
+        return JsonResponse({"msg": "Song added from favorites", "type":"success"}, status=status.HTTP_200_OK, safe=False)
+
+def addLikes(request, id):
+    song = Song_model.objects.get(id=id)
+    if song.likes.filter(id=request.user.id).exists():
+        song.likes.remove(request.user)
+        return JsonResponse({"msg": "Song unliked", "type":"error"}, status=status.HTTP_200_OK, safe=False)
+    else:
+        song.likes.add(request.user)
+        return JsonResponse({"msg": "Song liked", "type":"success"}, status=status.HTTP_200_OK, safe=False)
+
+def show_favorites(request):
+    return "<h2>this is the favorite page</h2>"

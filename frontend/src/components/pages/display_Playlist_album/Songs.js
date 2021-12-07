@@ -12,6 +12,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import store from '../../store';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import MicExternalOnIcon from '@mui/icons-material/MicExternalOn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
@@ -21,7 +22,9 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import Skeleton from '@mui/material/Skeleton';
-import Stack from '@mui/material/Stack';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from '@mui/material/Snackbar';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const styles = {
@@ -61,6 +64,8 @@ function Songs(props){
     const [dropdownId, setDropdownId] = useState(false);
     const [playingMode, setPlayingMode] = useState('listen');
     const [playingMode_dropdown, setPlayingMode_dropdown] = useState(false);
+    const [snackBar_msg, setSnackBar_msg] = useState()
+    const [snackBarOpen, setSnackBarOpen] = useState(false)
 
     const playShuffledPlaylist = () => {
         props.setStore(shuffle(props.songs))
@@ -114,8 +119,46 @@ function Songs(props){
             playSong(i);
         } 
     }
+    
+    const handleClose = () => {
+        setSnackBarOpen(false);
+    };
+
+    const addFavorite = (id) => {
+        fetch("/api/addLikes/"+ id)
+        .then(res => res.json())
+        .then(data => {
+            // isSnackBar
+            // setIsSnackBar
+            // snackBar_severity
+            // setSnackBar_severity
+            // setSnackBar_msg
+            setSnackBar_msg(data.msg);
+            setSnackBarOpen(true)
+        })
+    }
+
     return (
         <Container>
+            <Snackbar
+                anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+                }}
+                open={snackBarOpen}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message={snackBar_msg}
+                style={{background: "var(--green)"}}
+                action={
+                <React.Fragment>
+                    <IconButton size="small" aria-label="close" color="inherit" onClick={()=>handleClose()}>
+                    <CloseIcon fontSize="small" />
+                    </IconButton>
+                </React.Fragment>
+                }
+            />
+            
             <header>
                 {/* this is the playing mode */}
                 <div>
@@ -239,7 +282,11 @@ function Songs(props){
                                     <TableCell align="left">
                                         <Cell>
                                             <Wrap>
-                                                <FavoriteBorderIcon style={{color: 'var(--green)'}} />
+                                                { row.is_liked? 
+                                                    <FavoriteIcon style={{color: 'var(--green)'}} />
+                                                :
+                                                    <FavoriteBorderIcon style={{color: 'var(--green)'}} />
+                                                }
                                             </Wrap>
                                         </Cell>
                                     </TableCell>
@@ -334,7 +381,11 @@ function Songs(props){
                                     <TableCell align="left">
                                         <Cell>
                                             <Wrap>
-                                                <FavoriteBorderIcon />
+                                                { row.is_liked? 
+                                                    <FavoriteIcon style={{color: 'var(--green)'}} onClick={() => addFavorite(row.song_id)} />
+                                                :
+                                                    <FavoriteBorderIcon onClick={() => addFavorite(row.song_id)} />
+                                                }
                                             </Wrap>
                                         </Cell>
                                     </TableCell>

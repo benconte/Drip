@@ -210,7 +210,11 @@ function Player(props){
             </MiddleSection>
             <RightSection>
                 <div className="volume">
-                    <input type="range" min='0' max="100" value={volume} onInput={(e) => handleVolume(e)} />
+                    { isMuted? 
+                        <input type="range" min='0' disabled max="100" value={volume} onInput={(e) => handleVolume(e)} />
+                    : 
+                        <input type="range" min='0' max="100" value={volume} onInput={(e) => handleVolume(e)} />
+                    }
                     { isMuted? (
                         <VolumeMuteIcon style={{color: "var(--green)"}} onClick={() => handleMute()} />
                     ) : (
