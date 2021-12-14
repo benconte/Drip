@@ -128,11 +128,7 @@ function Songs(props){
         fetch("/api/addLikes/"+ id)
         .then(res => res.json())
         .then(data => {
-            // isSnackBar
-            // setIsSnackBar
-            // snackBar_severity
-            // setSnackBar_severity
-            // setSnackBar_msg
+            console.log(props.songs.find(({song}) => song.songId === id));
             setSnackBar_msg(data.msg);
             setSnackBarOpen(true)
         })
@@ -146,10 +142,9 @@ function Songs(props){
                 horizontal: 'center',
                 }}
                 open={snackBarOpen}
-                autoHideDuration={6000}
+                autoHideDuration={4000}
                 onClose={handleClose}
                 message={snackBar_msg}
-                style={{background: "var(--green)"}}
                 action={
                 <React.Fragment>
                     <IconButton size="small" aria-label="close" color="inherit" onClick={()=>handleClose()}>

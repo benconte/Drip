@@ -36,6 +36,7 @@ function DisplayPlaylist(props){
             { songs && <Songs 
                 playlist={playlist}
                 songs={songs} 
+                setSongs={setSongs}
                 song_length={song_length} 
                 setStore={props.setData}
                 setPlaying_song={props.setPlaying_song}
